@@ -1,0 +1,54 @@
+Rectangle horizontale
+	Valeur/Vecteur Propres
+		0.    1.    80.    0.     
+		1.    0.    0.     1360.  
+	Axe principale
+    	1.  
+    	0.  
+	Moment principale
+    	80.    0.     
+    	0.     1360.  
+
+
+Rectangle verticale
+	Valeur/Vecteur Propres
+    	1.    0.    80.    0.     
+    	0.    1.    0.     1360.  
+	Axe principale
+    	0.  
+    	1.  
+	Moment principale
+  		- 0.7071068  - 0.7071068    59.    0.     
+  		- 0.7071068    0.7071068    0.     1298.  
+
+Rectangle diagonale
+	Valeur/Vecteur Propres
+		- 0.7071068  - 0.7071068    59.    0.     	
+	  	- 0.7071068    0.7071068    0.     1298.  
+	Axe principale
+		- 0.7071068  
+	    0.7071068  
+	Moment principale
+	   	1298.    0.   
+	    0.       59.  
+
+
+Rectangle diagonale lisse
+	Valeur/Vecteur Propres
+		- 0.7080350  - 0.7061774    99.673034    0.         
+  		- 0.7061774    0.7080350    0.           1393.7427  
+	Axe principale
+  		- 0.7061774  
+    	0.7080350 
+	Moment principale
+ 		99.673034    0.         
+    	0.           1393.7427  
+
+
+
+
+
+
+
+
+
