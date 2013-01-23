@@ -1,0 +1,74 @@
+\documentclass[a4paper,10pt]{article}
+\input{/Users/benjamin/Documents/Education/LaTeX/macro.tex}
+
+\title{RDF - Séance 2}
+\author{Benjamin \bsc{Van Ryseghem}}
+
+\begin{document}
+\maketitle
+\section{Exercice 1 : Réduction d'une chaine de Freeman}
+\subsection{Question 1}
+
+\paragraph{Contour 1}
+\verb?"3100077575435443"?
+
+\paragraph{Contour 2}
+\verb?"00000767654444213432"?
+
+\subsection{Question 2: Réduction de chaine}
+
+On élimine les couples:
+\begin{itemize}
+	\item (0,4)
+	\item (1,5)
+	\item (2,6)
+	\item (3,7)
+\end{itemize}
+
+\paragraph{Contour 1}
+\verb?"55"?
+
+La chaine résultante correspond aux transformations reliant l'origine et l'arrivée.
+
+
+\paragraph{Contour 2}
+\verb?""?
+
+La chaine est vide car le contour est fermé.
+
+\subsection{Question 3}
+
+Il faut "inverser" la chaine résultante.
+
+"55" $\rightarrow$ "11"
+
+\section{Exercice 2 : Transformée de Hough}
+\subsection{Question 1}
+\subsection{Question 2}
+On définit le centre du repère en (3.5, 3.5)
+
+On obtient alors: \\
+\\
+\footnotesize
+\begin{tabular}{| c | c c c c c c c c c c c c c c |}
+
+\hline
+ & $-3.5\sqrt{2}$& $-3\sqrt{2}$&$-2.5\sqrt{2}$&$-2\sqrt{2}$&$-1.5\sqrt{2}$&$-\sqrt{2}$&$-0.5\sqrt{2}$& $0$ & $0.5\sqrt{2}$ & $\sqrt{2}$ & $1.5\sqrt{2}$ & $2\sqrt{2}$ & $2.5\sqrt{2}$ & $3\sqrt{2}$  \\
+$\pi/4$ & 0 & x & x & x & 3 & x & x & x &x&x&x&x&x& x \\
+$3\pi/4$ & 0 &x &x&x&x&x&x& x & x & x & x & x & x & x \\
+\hline
+\end{tabular}
+\normalsize
+
+
+\begin{tabular}{| c | c c c c c c c  c |}
+\hline
+& -3.5 & -2.5 & -1.5 & -0.5 & 0.5 & 1.5 & 2.5 & 3.5 \\
+$0$  x	 & x & x & x & x & x & x & x & x \\
+$\pi/2$   x	 & x & x & x & x & x & x & x  & x \\
+\hline
+\end{tabular}
+
+\signature
+
+\end{document}
