@@ -1,0 +1,54 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{TP2 : Codage d'un contour}
+\author{Benjamin \bsc{Van Ryseghem} François \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section{Codage d'un contour}
+
+\subsection{Cont}
+Les points du contour sont stocké dans la variable sous forme d'une liste de nombre complexe.
+
+\subsection{}
+\begin{Verbatim}
+nom1 = "cercle-80.txt";
+cont1 = rdfChargeFichierContour (nom1);
+
+cont2 = cont1(1:4:$);
+cont3 = cont1(1:8:$);
+rdfAfficheContour(cont1, 2, "r");
+rdfAfficheContour(cont2, 2, "g");
+rdfAfficheContour(cont3, 2, "b");
+\end{Verbatim}
+
+\section{Descripteur de Fourier}
+
+\subsection{Pourquoi la fonction rdfDescFourier élimine t'elle parfois un point de la liste des points du contour?}
+
+Car si il y a un nombre paire de point alors on ne peut pas prendre le point correspondant au milieu de la liste de point.
+
+\subsection{}
+
+\begin{Verbatim}
+descFour = rdfDescFourier(cont);
+rdfAfficheContour (rdfInverseDescFourier(descFour), 1, "k");
+\end{Verbatim}
+
+\subsection{Quel est l'indice de tableau correspondant au descripteur Z0 ?}
+Il se situe à la moitié de la taille du tableau.
+
+\subsection{Expliquer l'utilité de la fonction rdfValeurDescFourier}
+Cette fonction sert à afficher la valeur d'un point de la liste des descripteurs de Fourier 
+ 
+ \subsection{A quoi correspond le descripteur de Fourier Z0 d'une forme décrite par son contour?}
+ C'est le barycentre de la forme.
+ 
+ On observe que si on le modifie ................... ???
+
+
+
+
+\end{document}
