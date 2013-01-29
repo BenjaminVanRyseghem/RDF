@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt]{article}
-\input{/Users/benjamin/Documents/Education/LaTeX/macro.tex}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
 
 \title{RDF - TP 1}
 \author{Franois \bsc{Lepan}\\Benjamin \bsc{Van Ryseghem}}
@@ -7,8 +7,13 @@
 \begin{document}
 \maketitle
 
+\section{Code Scilab}
+\subsection{Analysez le code contenu dans ce fichier et expliquez comment les doubles sommes ncessaires au calcul des moments gomtriques sont implantes. Quel est l'intrt de cette technique?}
+??????
+
 \section{Moments d'une forme}
-\subsection{ Rectangle Horizontal}
+\subsection{Calcule des valeurs propres et les vecteurs propres de la matrice d'inertie des 4 rectangles}
+\subsubsection{ Rectangle Horizontal}
 \paragraph{Valeurs Propres}
 \[ \left( 80\  1360 \right)\]
 
@@ -33,10 +38,10 @@
 \]
 
 
-\paragraph{ Moments Principaux}
+\paragraph{Moments Principaux}
 \[ \left( 80 \ 1360 \right)\]
 
-\subsection{ Rectangle Vertical}
+\subsubsection{ Rectangle Vertical}
 \paragraph{Valeurs Propres}
 \[ \left( 80\  1360 \right)\]
 
@@ -65,7 +70,7 @@
 \[ \left( 80 \ 1360 \right)\]
 
  
- \subsection{ Rectangle Diagonal}
+ \subsubsection{ Rectangle Diagonal}
 \paragraph{Valeurs Propres}
 \[ \left( 59 \  1298 \right)\]
 
@@ -93,7 +98,7 @@
 \paragraph{ Moments Principaux}
 \[ \left( 1298 \ 59 \right)\]
 
- \subsection{ Rectangle Diagonal Liss}
+ \subsubsection{ Rectangle Diagonal Liss}
 \paragraph{Valeurs Propres}
 \[ \left( 99.673034 \  1393.7427 \right)\]
 
@@ -121,6 +126,135 @@
 \paragraph{ Moments Principaux}
 \[ \left( 99.673034 \ 1393.7427 \right)\]
  
-\signature
+\subsection{Quelle est la diffrence entre les deux images d'un rectangle diagonal?}
+ ??????
+\subsection{Comment cela influence t'il le calcul des moments?}
+ ??????
+\subsection{Calcule des moments principaux d'inertie des diffrents carrs (6, 10, 30deg, 45deg)}
+m  =
+ 
+    105.  
+    105.  
+-->m1 = inertiaMatrix(image1);
+-->m1 = momentums(m1)
+ m1  =
+ 
+    825.  
+    825.  
+-->m2 = inertiaMatrix(image2);
+-->m2 = momentums(m2)
+ m2  =
+ 
+    842.42024  
+    843.28148  
+-->m3 = inertiaMatrix(image3);
+-->m3 = momentums(m3)
+ m3  =
+ 
+    841.51713  
+    838.53593  
+-->m4 = inertiaMatrix(image4);
+-->m4 = momentums(m4)
+ m4  =
+ 
+    13300.  
+    13300.  
+-->m5 = inertiaMatrix(image5);
+-->m5 = momentums(m5)
+ m5  =
+ 
+    396.02318  
+    420.81221  
+    
++ Conclure sur la possibilit d'utiliser ces moments comme atributs de forme.
+ 
+ \section{Moments normaliss}
+ 
+ \subsection{Fonction rdfMomentCentreNormalise  -> etha }
+ 
+ 
+ \subsection{}
+-->m = inertiaMatrixCentered(image);
+-->m = momentums(m)
+ m  =
+ 
+    0.0810185  
+    0.0810185  
+-->m1 = inertiaMatrixCentered(image1);
+-->m1 = momentums(m1)
+ m1  =
+ 
+    0.0825  
+    0.0825  
+-->m2 = inertiaMatrixCentered(image2);
+-->m2 = momentums(m2)
+ m2  =
+ 
+    0.0840244  
+    0.0841103  
+-->m3 = inertiaMatrixCentered(image3);
+-->m3 = momentums(m3)
+ m3  =
+ 
+    0.0854334  
+    0.0851307  
+-->m4 = inertiaMatrixCentered(image4);
+-->m4 = momentums(m4)
+ m4  =
+ 
+    0.083125  
+    0.083125  
+-->m5 = inertiaMatrixCentered(image5);
+-->m5 = momentums(m5)
+ m5  =
+ 
+    0.3320313  
+    0.0195313  
+-->m6 = inertiaMatrixCentered(image6);
+-->m6 = momentums(m6)
+ m6  =
+ 
+    0.0195313  
+    0.3320313  
+-->m7 = inertiaMatrixCentered(image7);
+-->m7 = momentums(m7)
+ m7  =
+ 
+    0.3858502  
+    0.0175386  
+-->m8 = inertiaMatrixCentered(image8);
+-->m8 = momentums(m8)
+ m8  =
+ 
+    0.0239599  
+    0.3350345  
+    
+    \subsection{calcule des moments principaux d'inertie en diagonalisant la matrice d'inertie calcule ˆ partir des moments centrs normaliss plut™t qu'ˆ partir des moments centrs}
+    ???????
+    
+    \section{Moments invariants}
+    
+    \subsection{Calcule des attributs des formes contenues dans les images d'une mme forme pour diffrentes orientations et diffrentes chelles (les carrs)}
+    -->m = Hu5(image)
+ m  =
+ 
+    0.  
+-->m1 = Hu5(image1)
+ m1  =
+ 
+    0.  
+-->m2 = Hu5(image2)
+ m2  =
+ 
+    1.378D-14  
+-->m3 = Hu5(image3) 
+ m3  =
+ 
+    6.501D-15  
+-->m4 = Hu5(image4)
+ m4  =
+ 
+    0.  
+%\signature
 
 \end{document}

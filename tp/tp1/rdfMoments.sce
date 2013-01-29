@@ -36,37 +36,60 @@ image3 = im2double(imread (nom3));
 nom4 = "rdf-carre-20.png";
 image4 = im2double(imread (nom4));
 
-nom5 = "rdf-triangle-10.png";
+//nom5 = "rdf-triangle-10.png";
+//image5 = im2double(imread (nom5));
+
+//nom6 = "rdf-triangle-10-15deg.png";
+//image6 = im2double(imread (nom6));
+
+//nom7 = "rdf-triangle-10-45deg.png";
+//image7 = im2double(imread (nom7));
+
+//nom8 = "rdf-triangle-10-60deg.png";
+//image8 = im2double(imread (nom8));
+
+nom5 = "rdf-rectangle-horizontal.png";
 image5 = im2double(imread (nom5));
 
-nom6 = "rdf-triangle-10-15deg.png";
+nom6 = "rdf-rectangle-vertical.png";
 image6 = im2double(imread (nom6));
 
-nom7 = "rdf-triangle-10-45deg.png";
+nom7 = "rdf-rectangle-diagonal.png";
 image7 = im2double(imread (nom7));
 
-nom8 = "rdf-triangle-10-60deg.png";
+nom8 = "rdf-rectangle-diagonal-lisse.png";
 image8 = im2double(imread (nom8));
+
+
 
 // Calcul de la surface
 //surface = rdfSurface (image);
 
 m = inertiaMatrixCentered(image);
+m = momentums(m)
 m1 = inertiaMatrixCentered(image1);
+m1 = momentums(m1)
 m2 = inertiaMatrixCentered(image2);
+m2 = momentums(m2)
 m3 = inertiaMatrixCentered(image3);
+m3 = momentums(m3)
 m4 = inertiaMatrixCentered(image4);
+m4 = momentums(m4)
 m5 = inertiaMatrixCentered(image5);
+m5 = momentums(m5)
 m6 = inertiaMatrixCentered(image6);
+m5 = momentums(m6)
 m7 = inertiaMatrixCentered(image7);
+m5 = momentums(m7)
 m8 = inertiaMatrixCentered(image8);
+m8 = momentums(m8)
 
-m = Hu5(image)
-m1 = Hu5(image1)
-m2 = Hu5(image2)
-m3 = Hu5(image3) 
-m4 = Hu5(image4)
-m5 = Hu5(image5)
-m6 = Hu5(image6)
-m7 = Hu5(image7)
-m8 = Hu5(image8)
+//m = Hu5(image)
+//m1 = Hu5(image1)
+//m2 = Hu5(image2)
+//m3 = Hu5(image3) 
+//m4 = Hu5(image4)
+//m5 = Hu5(image5)
+//m6 = Hu5(image6)
+//m7 = Hu5(image7)
+//m8 = Hu5(image8)

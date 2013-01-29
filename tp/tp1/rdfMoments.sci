@@ -45,6 +45,7 @@ function m = rdfMomentCentre (im, p, q)
 endfunction
 
 // Calcule de la matrice d'inertie
+
 function result = mu(im, p, q)
   xBarre = rdfMoment (im,1,0) / rdfMoment (im,0,0);
   yBarre = rdfMoment (im,0,1) / rdfMoment (im,0,0);

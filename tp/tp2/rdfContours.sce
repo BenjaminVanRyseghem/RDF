@@ -50,8 +50,8 @@ cont2 = rdfAlgorithmeCorde (cont, 1);
 //cont3 = rdfAlgorithmeCorde (cont, 1);
 
 rdfAfficheContour(cont, 1, "r");
-//rdfAfficheContour(cont1, 1, "g");
-rdfAfficheContour(cont2, 1, "b");
+rdfAfficheContour(cont1, 1, "g");
+//rdfAfficheContour(cont2, 1, "b");
 //rdfAfficheContour(cont3, 1, "b");
 
 //rdfAfficheContour(contour, 2, "r");
