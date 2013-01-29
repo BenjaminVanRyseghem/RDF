@@ -225,19 +225,17 @@ function vector = rdfAnnuleDescFourier(desc,ratio)
               //  print(%io(2),desc((size/2+1):(size/2+index))')
                // print(%io(2),zeros(1,size - size/2-index-1))
               //v = zeros(1,size/2)
-              //v1 = desc((size/2+1):(size/2+index))']
-             
+              //v1 = desc((size/2+1):(size/2+index))'
                 s = size/2;
                 s1 = size/2 + 1;
                 s2 = size/2 + index;
                 s3 = size - size/2 - index - 1;
-                
-                vector = [ zeros(1,s)  desc(s1:s2)'  zeros(1,s3)]'
+                vector = [ zeros(2,s) desc(s1:s2) zeros(2,s3)] 
             else
-                s = index - size/2;
-                s1 = size - index;
-                s2 = size/2 + 1;
-                vector = [ desc(1:s)' zeros(1,s1) desc(s2:$)' ]'
+                s = index-size/2;
+                s1 = size-index;
+                s
+                vector = [ desc(1:)' zeros(1,) desc(():$)' ]
             end
          end
     end
