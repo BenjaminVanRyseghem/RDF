@@ -1,0 +1,64 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{RdF : TD sur les textures}
+\author{François \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section{Matrices de co-occurrence}
+\subsection{Calculer les histogrammes des ces trois images et expliquer pourquoi cette mesure statistique ne peut pas être exploitée pour décrire une texture}
+
+on obtiendra 3 histogramme identique a 20 / 20 /20 / 20 pour chaque niveau de gris
+
+\subsection{calculer les matrices de co-occurrence des niveaux de gris pour tous les couples de décalages qui permettent de décrire les paires de pixels voisins en connexité 8}
+M(1;0) M(-1;0)
+M(1;-1) M(-1;1)
+M(0;-1) M(0;1)
+M(-1;-1) M(1;1)
+
+\subsection{Pour la première image de texture, calculer les matrices de co-occurrence pour les couples de décalages (0,1) et (0,?1)}
+
+???????????????????
+\begin{paragraph}{Pour M(0;1) -> pixel du dessous}
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+& 0 & 1 & 2 & 3 \\
+\hline
+\hline
+0& 0 & 0 & 0 &15 \\
+\hline
+1& 0 & 0 & 20& 0 \\
+\hline
+2 & 0 &15 & 0 & 0 \\
+\hline
+3& 20 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\end{paragraph}
+???????????????????
+
+\begin{paragraph}{Pour M(0;-1) -> pixel du dessus}
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+& 0 & 1 & 2 & 3 \\
+\hline
+\hline
+0& 0 & 0 & 0 &15 \\
+\hline
+1& 0 & 0 & 20& 0 \\
+\hline
+2 & 0 &15 & 0 & 0 \\
+\hline
+3& 20 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\end{paragraph}
+
+
+\subsection{indiquer pourquoi il n'est pas nécessaire de calculer les matrices pour tous les couples de décalage déterminés précédemment}
+
+
+
+\end{document}

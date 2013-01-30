@@ -217,28 +217,7 @@ function vector = rdfAnnuleDescFourier(desc,ratio)
             vector = zeros(1,size)
         else
             index = int(ratio*size)
-              // print(%io(2),index)
-            if ratio <= 0.5 then
-              // print(%io(2),size/2)
-              // print(%io(2),size/2+1)
-               // print(%io(2),zeros(1,size/2))
-              //  print(%io(2),desc((size/2+1):(size/2+index))')
-               // print(%io(2),zeros(1,size - size/2-index-1))
-              //v = zeros(1,size/2)
-              //v1 = desc((size/2+1):(size/2+index))']
-             
-                s = size/2;
-                s1 = size/2 + 1;
-                s2 = size/2 + index;
-                s3 = size - size/2 - index - 1;
-                
-                vector = [ zeros(1,s)  desc(s1:s2)'  zeros(1,s3)]'
-            else
-                s = index - size/2;
-                s1 = size - index;
-                s2 = size/2 + 1;
-                vector = [ desc(1:s)' zeros(1,s1) desc(s2:$)' ]'
-            end
+            vector = [desc(1:index)' zeros(1,size-index) ]'
          end
     end
     

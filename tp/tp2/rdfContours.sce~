@@ -24,7 +24,7 @@ exec ("rdfContours.sci", -1);
 //nom = "carre-80.txt";
 //cont = rdfChargeFichierContour (nom);
 
-cont = rdfContour(im2double(imread ("rdf-patate.png")));
+//cont = rdfContour(im2double(imread ("rdf-patate.png")));
 //cont = rdfContour(im2double(imread ("rdf-croix.png")));
 //cont = rdfContour(im2double(imread ("rdf-triangle-20.png")));
 // Afficher, fenetre 1, contour en noir "k"
@@ -38,19 +38,22 @@ cont = rdfContour(im2double(imread ("rdf-patate.png")));
 //cont = rdfAlgorithmeCorde (cont, 1);
 //descFour(41:48)
 
-descFour = rdfDescFourier(cont);
-cont1 = rdfInverseDescFourier(rdfAnnuleDescFourier(descFour,0.6))
-
+//descFour = rdfDescFourier(cont)
+//cont1 = rdfInverseDescFourier(rdfAnnuleDescFourier(descFour,0.95));
+//cont2 = rdfInverseDescFourier(rdfAnnuleDescFourier(descFour,0.7));
 
 //cont2 = rdfInverseDescFourier(rdfAnnuleDescFourier(descFour,0.3))
 //cont3 = rdfInverseDescFourier(rdfAnnuleDescFourier(descFour,0.1));
 
-cont2 = rdfAlgorithmeCorde (cont, 1);
+//cont2 = rdfAlgorithmeCorde (cont, 1);
 //cont2 = rdfAlgorithmeCorde (cont, 0.5);
 //cont3 = rdfAlgorithmeCorde (cont, 1);
 
-rdfAfficheContour(cont, 1, "r");
-rdfAfficheContour(cont1, 1, "g");
+//rdfAfficheContour(cont, 1, "r");
+//rdfAfficheContour(cont1, 1, "g");
+//rdfAfficheContour(cont2, 1, "b");
+
+
 //rdfAfficheContour(cont2, 1, "b");
 //rdfAfficheContour(cont3, 1, "b");
 
@@ -58,3 +61,24 @@ rdfAfficheContour(cont1, 1, "g");
 
 //rdfAfficheContour(rdfAlgorithmeCorde (cont, 1), 1, "r");
 //rdfAfficheContour(rdfAlgorithmeCorde (cont, 5), 1, "r");
+
+//tab = [1,2,3,4,5,6,7,8,9,10]';
+//rdfAnnuleDescFourier(tab,0.99);
+
+nom1 = "cercle-80.txt";
+cont1 = rdfChargeFichierContour (nom1);
+cont2 = cont1(1:4:$);
+cont3 = cont1(1:8:$);
+//rdfAfficheContour(cont1, 2, "r");
+//rdfAfficheContour(cont2, 2, "g");
+//rdfAfficheContour(cont3, 2, "b");
+
+descFour = rdfDescFourier(cont1)
+descFour1 = rdfDescFourier(cont1)
+descFour(1) = 5;
+
+rdfAfficheContour(rdfInverseDescFourier(descFour), 2, "r");
+rdfAfficheContour(rdfInverseDescFourier(descFour1), 2, "g");
+
+
+

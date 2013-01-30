@@ -1,0 +1,172 @@
+ \documentclass[a4paper,10pt]{article}
+\input{../../../LaTeX/macro.tex}
+
+\title{TP2 : Codage d'un contour}
+\author{Benjamin \bsc{Van Ryseghem} \\ François \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section{Codage d'un contour}
+
+\subsection{Cont}
+Les points du contour sont stockés dans la variable sous forme d'une liste de nombres complexes.
+
+\subsection{En ne conservant qu'un point sur 4, puis un point sur 8, constituer deux autres contours approchant la forme circulaire et les afficher respectivement en bleu et en vert dans la même fenêtre}
+
+Voici le code correspondant:
+
+\begin{verbatim}
+nom1 = "cercle-80.txt";
+cont1 = rdfChargeFichierContour (nom1);
+
+cont2 = cont1(1:4:$);
+cont3 = cont1(1:8:$);
+rdfAfficheContour(cont1, 2, "r");
+rdfAfficheContour(cont2, 2, "g");
+rdfAfficheContour(cont3, 2, "b");
+\end{verbatim}
+
+\section{Descripteur de Fourier}
+
+\subsection{Pourquoi la fonction rdfDescFourier élimine t'elle parfois un point de la liste des points du contour?}
+Pour plus de performance dans le calcule des descripteurs de Fourier
+
+\subsection{Vérifier que les descripteurs de Fourier permettent de reconstituer le contour initial}
+Voici le code correspondant:
+\begin{verbatim}
+descFour = rdfDescFourier(cont);
+rdfAfficheContour (rdfInverseDescFourier(descFour), 1, "k");
+\end{verbatim}
+
+\subsection{Quel est l'indice de tableau correspondant au descripteur Z0 ?}
+Il se situe à la moitié de la taille du tableau.
+
+\subsection{Expliquer l'utilité de la fonction rdfValeurDescFourier}
+Cette fonction sert à afficher la valeur d'un point de la liste des descripteurs de Fourier 
+ 
+ \subsection{À quoi correspond le descripteur de Fourier $Z_0$ d'une forme décrite par son contour?}
+ C'est le barycentre de la forme.
+ 
+ On observe que si on met une grande valeur les courbes on tendance a se rapprocher du centre. 
+ C'est un peut comme si on augmentait la gravité au centre de la forme. 
+ 
+\begin{verbatim}
+descFour = rdfDescFourier(cont)
+descFour((size(descFour,1)/2)) = VALUE;
+\end{verbatim}
+
+\section{Filtrage des descripteurs de Fourier}
+
+Voici la fonction rdfAnnuleDescFourier:
+
+\begin{verbatim}
+function vector = rdfAnnuleDescFourier(desc,ratio)
+    size = size(desc,1);
+    
+    if ratio == 1 then
+        vector = desc
+    else 
+        if ratio == 0 then
+            vector = zeros(1,size)
+        else
+            index = int(ratio*size)
+            
+            if ratio <= 0.5 then
+                s = size/2;
+                s1 = size/2 + 1;
+                s2 = size/2 + index;
+                s3 = size - size/2 - index - 1;
+                vector = [ zeros(1,s)  desc(s1:s2)'  zeros(1,s3)]'
+            else
+                s = index - size/2;
+                s1 = size - index;
+                s2 = size/2 + 1;
+                vector = [ desc(1:s)' zeros(1,s1) desc(s2:$)' ]'
+            end
+         end
+    end
+endfunction
+\end{verbatim}
+
+<<<<<<< HEAD
+Lorsque nous réduisons le ratio il se trouve que en effet la forme se simplifie (faire figure 1).
+=======
+Lorsque nous réduisons le ratio il se trouve que en effet la forme se simplifie (\emph{c.f.}~Fig~\ref{fig:reduction_fourrier})
+
+\begin{figure}[ht]
+	\begin{center}
+%		\includegraphics[width=10cm]{reduc_chaine_cont.png}
+	\end{center}
+	\caption{Annulation des descripteurs de Fourrier}
+	\label{fig:reduction_fourrier}
+\end{figure}
+
+
+>>>>>>> e391af5bc5364fb1bc9c29678960768ef024e9e3
+\section{Réduction d'une chaîne de contour}
+
+Voici le code que nous avons mis pour rdfAlgorithmeCorde:
+\begin{verbatim}
+    if real (debut) == real (fin)  then
+        d = abs(real(cont) - real(debut))
+    else	
+        a = (imag(fin) - imag(debut))/(real(fin) - real(debut))
+        b = imag(fin) - a * real(fin)
+        		
+        if a == 0 then
+            d = abs(imag(cont) - b)
+        else
+            d = abs(a*real(cont) - imag(cont) + b) ./ (sqrt(1+a^2))
+        end
+    end
+\end{verbatim}
+
+<<<<<<< HEAD
+Et on observe bien que si on augmente dmax on réduit bien le contour (voir figure 2)
+
+\section{Comparaison des deux approches}
+
+Après avoir fait quelques tests nous nous sommes rendu compte que:
+Pour des formes connexes (triangles, carres, cercles) l'algorithme des cordes est mieux car beaucoup plus rapide que celui des descripteur de Fourier. Sinon dans les deux cas le travail est bien fait. (voir figure 3) \\
+\\
+Mais pour ce qui est des formes non connexes ( patatoïde) l'algorithme de Fourier est bien plus précis. On observe sur la figure suivante les deux algorithmes et on voit bien que l'algolrithme des cordes fait des segment qui sont en dehors de la figure. (voir figure 4) \\
+\\
+En conclusion je dirai que l'algorithme des cordes n'est pas aussi efficace pour faire de la reconnaissance de formes complexe comme un visage ou une patate que l'algorithme de Fourier. Par contre il est beaucoup plus rapide pour des formes géométriques simples comme un triangle ou un carré.
+=======
+Et on observe bien que si on augmente \verb?dmax? on réduit bien le contour (\emph{c.f.}~Fig~\ref{fig:reduction_chaine_cont})
+>>>>>>> e391af5bc5364fb1bc9c29678960768ef024e9e3
+
+\begin{figure}[ht]
+	\begin{center}
+     		\includegraphics[width=10cm]{reduc_chaine_cont.png}
+	\end{center}
+	\caption{Réduction d'une chaine de contours. rouge: contours initial \_\_ vert:  Cordes avec dmax=0.5 \_\_ bleu  Cordes avec dmax=1}
+	\label{fig:reduction_chaine_cont}
+\end{figure}
+
+\section{Comparaison des deux approches}
+
+Après avoir fait quelques tests nous nous sommes rendu compte que pour des formes connexes (triangles, carres, cercles) l'algorithme des cordes est mieux car beaucoup plus rapide que celui des descripteurs de Fourier. Cependant, dans les deux cas le l'approximation est correcte (\emph{c.f.}~Fig~\ref{fig:comp_fourier}).
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=10cm]{cmp_fourier_normale.png}
+	\end{center}
+	\caption{rouge: contours initial \_\_ vert: Fourier avec ratio=0.6}
+	\label{fig:comp_fourier}
+\end{figure}
+
+Mais pour ce qui est des formes non connexes (patatoïde) l'algorithme de Fourier est bien plus précis. On observe sur la figure Fig~\ref{fig:comp_cordes} les deux algorithmes et on voit bien que l'algorithme des cordes fait des segment qui sont en dehors de la figure.
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=10cm]{cmp_cordes_normale.png}
+	\end{center}
+	\label{}
+	\caption{rouge: contours initial \_\_ bleu: Cordes avec dmax=1}
+	\label{fig:comp_cordes}
+\end{figure}
+
+En conclusion nous dirons que l'algorithme des cordes n'est pas efficace pour faire de la reconnaissance de formes complexes comme un visage ou une patate (images réelles) contrairement à l'algorithme de Fourier. Par contre il est beaucoup plus rapide pour des formes géométriques (images générées) comme un triangle ou un carré.
+\end{document}
