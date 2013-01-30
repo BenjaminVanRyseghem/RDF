@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt]{article}
-\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+\input{../../../../../LaTeX/macro.tex}
 
 \title{RDF - TP 1}
 \author{Franois \bsc{Lepan}\\Benjamin \bsc{Van Ryseghem}}
@@ -9,7 +9,9 @@
 
 \section{Code Scilab}
 \subsection{Analysez le code contenu dans ce fichier et expliquez comment les doubles sommes ncessaires au calcul des moments gomtriques sont implantes. Quel est l'intrt de cette technique?}
-??????
+
+Les doubles sommes sont implantes en utilisant les proprits des calculs matriciels afin d'viter les boucles d'itrations.
+L'intrt de cette technique est qu'tant donn que les calculs matriciels sont trs optimiss, il y a un gain de performance (et de lisibilit).
 
 \section{Moments d'une forme}
 \subsection{Calcule des valeurs propres et les vecteurs propres de la matrice d'inertie des 4 rectangles}
@@ -127,9 +129,13 @@
 \[ \left( 99.673034 \ 1393.7427 \right)\]
  
 \subsection{Quelle est la diffrence entre les deux images d'un rectangle diagonal?}
- ??????
+
+Entre les deux rectangles, mme si l'axe principal reste a peu de choses prs le mme, l'orientation est diffrente.
+
 \subsection{Comment cela influence t'il le calcul des moments?}
- ??????
+De ce fait, les moments sont eux aussi inverss. Ë cause de cela, deux figures proches ont des moments principaux vraiment diffrents.
+
+
 \subsection{Calcule des moments principaux d'inertie des diffrents carrs (6, 10, 30deg, 45deg)}
 m  =
  
@@ -170,91 +176,78 @@ m  =
  
  \section{Moments normaliss}
  
- \subsection{Fonction rdfMomentCentreNormalise  -> etha }
+ \subsection{Fonction rdfMomentCentreNormalise : $\eta$ }
  
  
- \subsection{}
--->m = inertiaMatrixCentered(image);
--->m = momentums(m)
- m  =
- 
-    0.0810185  
-    0.0810185  
--->m1 = inertiaMatrixCentered(image1);
--->m1 = momentums(m1)
- m1  =
- 
-    0.0825  
-    0.0825  
--->m2 = inertiaMatrixCentered(image2);
--->m2 = momentums(m2)
- m2  =
- 
-    0.0840244  
-    0.0841103  
--->m3 = inertiaMatrixCentered(image3);
--->m3 = momentums(m3)
- m3  =
- 
-    0.0854334  
-    0.0851307  
--->m4 = inertiaMatrixCentered(image4);
--->m4 = momentums(m4)
- m4  =
- 
-    0.083125  
-    0.083125  
--->m5 = inertiaMatrixCentered(image5);
--->m5 = momentums(m5)
- m5  =
- 
-    0.3320313  
-    0.0195313  
--->m6 = inertiaMatrixCentered(image6);
--->m6 = momentums(m6)
- m6  =
- 
-    0.0195313  
-    0.3320313  
--->m7 = inertiaMatrixCentered(image7);
--->m7 = momentums(m7)
- m7  =
- 
-    0.3858502  
-    0.0175386  
--->m8 = inertiaMatrixCentered(image8);
--->m8 = momentums(m8)
- m8  =
- 
-    0.0239599  
-    0.3350345  
+\begin{verbatimtab}
+m = inertiaMatrixCentered(image);
+	0.0810185
+momentums(m)
+	0.0810185  
+	
+inertiaMatrixCentered(image1);
+	0.0825
+momentums(m1)
+	0.0825  
+	
+inertiaMatrixCentered(image2);
+	0.0840244
+momentums(m2)
+	0.0841103  
+	
+inertiaMatrixCentered(image3);
+	0.0854334
+momentums(m3)
+	0.0851307  
+	
+inertiaMatrixCentered(image4);
+	0.083125
+momentums(m4)
+	0.083125  
+	
+inertiaMatrixCentered(image5);
+	0.3320313
+momentums(m5)
+	0.0195313  
+	
+inertiaMatrixCentered(image6);
+	0.0195313
+momentums(m6)
+	0.3320313  
+	
+inertiaMatrixCentered(image7);
+	0.3858502
+momentums(m7)
+	0.0175386  
+	
+inertiaMatrixCentered(image8);
+	0.0239599
+momentums(m8)
+	0.3350345  
+	
+\end{verbatimtab}
     
-    \subsection{calcule des moments principaux d'inertie en diagonalisant la matrice d'inertie calcule ˆ partir des moments centrs normaliss plut™t qu'ˆ partir des moments centrs}
+    \subsection{Calcul des moments principaux d'inertie en diagonalisant la matrice d'inertie calcule ˆ partir des moments centrs normaliss plut™t qu'ˆ partir des moments centrs}
     ???????
     
     \section{Moments invariants}
     
     \subsection{Calcule des attributs des formes contenues dans les images d'une mme forme pour diffrentes orientations et diffrentes chelles (les carrs)}
-    -->m = Hu5(image)
- m  =
- 
-    0.  
--->m1 = Hu5(image1)
- m1  =
- 
-    0.  
--->m2 = Hu5(image2)
- m2  =
- 
-    1.378D-14  
--->m3 = Hu5(image3) 
- m3  =
- 
-    6.501D-15  
--->m4 = Hu5(image4)
- m4  =
- 
-    0.  
-%\signature
+\begin{verbatimtab}   
+Hu5(image)
+	0.  
+	
+Hu5(image1)
+ 	0.  
 
+Hu5(image2)
+ 	1.378D-14.
+	
+Hu5(image3) 
+	6.501D-15.
+	
+Hu5(image4)
+	0.  
+\end{verbatimtab}
+\signature
 \end{document}
