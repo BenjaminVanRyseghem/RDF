@@ -48,6 +48,7 @@ endfunction
 
 // Classifieur lineaire 1D
 function classe = rdfClassifieurLineaire1D (image, a, b)
+    
   result = zeros (image);
   for y = 1:size (image, 1)
     for x = 1:size (image, 2)
@@ -55,7 +56,7 @@ function classe = rdfClassifieurLineaire1D (image, a, b)
       if a * i + b > 0 then
         result (y, x) = 1;
       else
-        result (y, x) = 0;
+        result (y, x) = 0;  
       end
     end
   end

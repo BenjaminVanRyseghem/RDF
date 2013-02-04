@@ -85,12 +85,9 @@ resultat2 = abs(binaire2-imgReference);
 resultat3 = abs(binaire3-imgReference);
 resultat4 = abs(binaire4-imgReference);
 
-imshow ([binaire,binaire1,binaire2,binaire3,binaire4]);
-
-
 // Affichage des images
-//imshow ([imgReference,binaire,resultat;
-//         imgReference,binaire1,resultat1;
-//         imgReference,binaire2,resultat2;
-//         imgReference,binaire3,resultat3;
-//         imgReference,binaire4,resultat4]); 
+imshow ([imgReference,binaire,resultat;
+         imgReference,binaire1,resultat1;
+         imgReference,binaire2,resultat2;
+         imgReference,binaire3,resultat3;
+         imgReference,binaire4,resultat4]); 
