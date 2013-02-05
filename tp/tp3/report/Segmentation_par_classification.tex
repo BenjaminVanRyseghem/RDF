@@ -1,5 +1,7 @@
  \documentclass[a4paper,10pt]{article}
 \input{../../../LaTeX/macro.tex}
+\usepackage[toc,page]{appendix} 
+
 
 \title{TP2 : Codage d'un contour}
 \author{Benjamin \bsc{Van Ryseghem} \\ François \bsc{Lepan}}
@@ -10,23 +12,22 @@
 \section{Code Scilab}
 \subsection{A quoi correspond l'argument bins de la fonction rdfCalculeHistogramme1D?}
 
-??????????????????????? \\
-??????????????????????? \\
-??????????????????????? \\
+\emph{bins} permet de définir le pas de l'histogramme. De ce fait, \emph{bins} définit aussi la taille de l'histogramme résultant (\emph{bins}+1).
+ De plus, plus \emph{bins} est grand, plus l'histogramme est précis, c'est à dire, proche de l'image originale.
 
 \subsection{Modifier la valeur de la variable seuil et commenter les résultats}
 
-La  ~Fig.~\ref{fig:Q1-2_binaire_variation_seuil_texture0} correspond au changement de la valeur de seuil. De gauche à droite on retrouve l'image initiale, l'image binarisée avec un seuil de 0.35, l'image binarisée avec un seuil de 0.5 et enfin l'image binarisée avec un seuil de 0.7. Afin de mieux comprendre les changement d'affichage il faut se référer à l'histogramme (cf: ~Fig.~\ref{fig:Q1-2_histo_texture0}) de l'image initiale. \\
+La Fig.~\ref{fig:Q1-2_binaire_variation_seuil_texture0} correspond au changement de la valeur de seuil. De gauche à droite on retrouve l'image initiale, l'image binarisée avec un seuil de 0.35, l'image binarisée avec un seuil de 0.5 et enfin l'image binarisée avec un seuil de 0.7. Afin de mieux comprendre les changements d'affichage il faut se référer à l'histogramme (\cf Fig.~\ref{fig:Q1-2_histo_texture0}) de l'image initiale. 
 
-En effet on observe 2 "piques" sur la courbe. Ceux-ci correspondes aux couleurs dominantes de l'image. Sachant que le noir correspond à la valeur 0 et le blanc à 1, on en déduit que le premier pic, situé entre 0.25 et 0.45, correspond à la couleur de fond gris foncé et le deuxième, situé entre 0.6 et 0.75, correspond à la couleur des cercles gris clairs.\\
+En effet on observe 2 pics sur la courbe. Ceux-ci correspondent aux couleurs dominantes de l'image. Sachant que le noir correspond à la valeur 0 et le blanc à 1, on en déduit que le premier pic, situé entre 0.25 et 0.45, correspond à la couleur de fond gris foncé et le deuxième, situé entre 0.6 et 0.75, correspond à la couleur des cercles gris clairs.
 
-Donc si on met le seuil de binarisation à 0.35 on lui dit que toutes les valeurs supérieures devienne blanche. C'est pour cela que l'on peut voir plein de taches blanches sur le fond. Il en est de même pour un seuil à 0.7, toutes les valeurs inférieur à 0.7 devienne noir c'est donc pour cela que l'on peut observer des taches noires à l'intérieur des cercles.
+Donc si on met le seuil de binarisation à 0.35 on force toutes les valeurs supérieures à ce seuil à devenir 1 (blanc). C'est pour cela que l'on peut voir plein de taches blanches sur le fond. Il en est de même pour un seuil à 0.7, toutes les valeurs inférieur à 0.7 devienne 0 (noir) c'est donc pour cela que l'on peut observer des taches noires à l'intérieur des cercles.
 
 \begin{figure}[ht]
 \begin{center}
 	\includegraphics[width=10cm, height=3.3cm]{Q1-2_binaire_variation_seuil_texture0.png}
 \end{center}
-	\caption{De gauche a droite: Image initiale, Image binarisée avec un seuil de 0.35, Image binarisée avec un seuil de 0.5, Image binarisée avec un seuil de 0.5}
+	\caption{De gauche à droite: image initiale, image binarisée avec un seuil de 0.35, image binarisée avec un seuil de 0.5, image binarisée avec un seuil de 0.75.}
 	\label{fig:Q1-2_binaire_variation_seuil_texture0}
 \end{figure}
 
@@ -34,21 +35,21 @@ Donc si on met le seuil de binarisation à 0.35 on lui dit que toutes les valeurs
 \begin{center}
 	\includegraphics[width=15cm, height=8cm]{Q1-2_histo_texture0.png}
 \end{center}
-	\caption{Histogramme de l'image de base (cf: ~Fig.~\ref{fig:Q1-2_binaire_variation_seuil_texture0})}
+	\caption{Histogramme de l'image de base (cf: Fig.~\ref{fig:Q1-2_binaire_variation_seuil_texture0})}
 	\label{fig:Q1-2_histo_texture0}
 \end{figure}
 
 \newpage
 
-\subsection{Changer le signe des deux derniers arguments de la fonction rdfClassifieurLineaire1D et expliquer le résultat}
+\subsection{Changer le signe des deux derniers arguments de la fonction \emph{rdfClassifieurLineaire1D} et expliquer le résultat}
 
-En changeant le signe des deux derniers arguments on obtient la ~Fig.~\ref{fig:Q1-3_invers_2_val_fct_class_lin_1D}. 
+En changeant le signe des deux derniers arguments on obtient la Fig.~\ref{fig:Q1-3_invers_2_val_fct_class_lin_1D}. 
 
 \begin{figure}[ht]
 \begin{center}
 	\includegraphics[width=5cm]{Q1-3_invers_2_val_fct_class_lin_1D.png}
 \end{center}
-	\caption{Image résultant de l'inversion des deux derniers arguments de la fonction rdfClassifieurLineaire1D sur l'image rdf-2-classes-texture-0.png}
+	\caption{Image résultant de l'inversion des deux derniers arguments de la fonction \emph{rdfClassifieurLineaire1D} sur l'image rdf-2-classes-texture-0.png}
 	\label{fig:Q1-3_invers_2_val_fct_class_lin_1D}
 \end{figure}
 
@@ -62,9 +63,11 @@ if a * i + b > 0 then
 end
 \end{verbatimtab}
 
-En observant la fonction on voit bien que au lieu que pour toutes les valeurs supérieur au seuil on met 1 on va a la place mettre 0.\\
+Le fonction précédente détermine la valeur de retour (0 ou 1) en fonction du calcul de $a \times i + b$. Or changer le signe de $a$ et $b$ revient à changer le sens de l'inégalité précédente.
 
-Prenons un example:  Si on prend a = 1, b = -0.5. \\
+De ce fait, inverser le signe des arguments revient à échanger le fond avec le premier plan.
+
+\paragraph{Prenons un example:}  si on prend a = 1, b = -0.5. \\
  Si on prend un $i >$ au seuil $0.5 \rightarrow i = 0.6$ on aura $1*0.6 - 0.5 = 0.1 > 0$ et donc on mettra 1. \\ 
  Si on prend un $i <$ au seuil $0.5 \rightarrow i = 0.4$ on aura $1*0.4 - 0.5 = -0.1 < 0$ et donc on mettra 0 \\
  
@@ -72,7 +75,7 @@ Prenons un example:  Si on prend a = 1, b = -0.5. \\
  Si on prend un $i >$ au seuil $0.5 \rightarrow i = 0.6$ on aura $-1*0.6 + 0.5 = -0.1 < 0$ et donc on mettra 0. \\ 
  Si on prend un $i <$ au seuil $0.5 \rightarrow i = 0.4$ on aura $-1*0.4 + 0.5 = 0.1 > 0$ et donc on mettra 1. \\
  
-C'est pour cela que l'affichage est inversé par rapport à la 3 ème image de la ~Fig.~\ref{fig:rdf-2-classes-texture-0_Q1-2_binaire_variation_seuil} .
+C'est pour cela que l'affichage est inversé par rapport à la 3 ème image de la Fig.~\ref{fig:Q1-2_binaire_variation_seuil_texture0} .
 
 \subsection{À quoi correspond l'opération [image, binaire] }
 
@@ -95,7 +98,7 @@ Voici les 5 histogrammes correspondant aux figures:
 
 \subsection{Pour chacune des ces images, déterminer le seuil qui permet de séparer au mieux les objets ronds du fond}
 
-En se basant sur les histogrammes précédemment calculé ainsi que la fonction \\ \emph{rdfClassifieurLineaire1D} nous avons pus déterminer les seuils qui permettent de retrouvé ~Fig.~\ref{fig:Q2-2_reference}: \\
+En se basant sur les histogrammes précédemment calculé ainsi que la fonction \verb?rdfClassifieurLineaire1D? nous avons pus déterminer les seuils qui permettent de retrouver Fig.~\ref{fig:Q2-2_reference}: \\
 
 \begin{figure}[ht]
 \begin{center}
@@ -140,7 +143,7 @@ binaire4 = rdfClassifieurLineaire1D (image4, 1, -seuil);
 imshow ([binaire,binaire1,binaire2,binaire3,binaire4]);
 \end{verbatim}
 
-Après l'exécution du code suivant on obtient la ~Fig.~\ref{fig:Q2-2_images_binarisees}
+Après l'exécution du code suivant on obtient la Fig.~\ref{fig:Q2-2_images_binarisees}
 
 \begin{figure}[ht]
 \begin{center}
@@ -166,9 +169,9 @@ imshow ([imgReference,binaire,resultat;
          imgReference,binaire4,resultat4]);
 \end{verbatimtab}
 
-Les variables binaire, binaire1, binaire2, binaire3 et binaire4 correspondent aux images binarisé de la ~Fig.~\ref{fig:Q2-2_images_binarisees}.\\ 
+Les variables binaire, binaire1, binaire2, binaire3 et binaire4 correspondent aux images binarisé de la Fig.~\ref{fig:Q2-2_images_binarisees}.\\ 
 
-L'exécution du code suivant donne la ~Fig.~\ref{fig:Q2-3_calcule_val_abs} sur laquelle on peut observer de gauche à droite l'image de référence, l'image binarisée (respectivement de 0 à 4 de haut en bas) et les différents résultat ( abs (image binarisée - image de référence)).
+L'exécution du code suivant donne la Fig.~\ref{fig:Q2-3_calcule_val_abs} sur laquelle on peut observer de gauche à droite l'image de référence, l'image binarisée (respectivement de 0 à 4 de haut en bas) et les différents résultat ( $\left|\ \mbox{image binarisée} - \mbox{image de référence}\ \right|$).
 
 \begin{figure}[ht]
 \begin{center}
@@ -178,17 +181,18 @@ L'exécution du code suivant donne la ~Fig.~\ref{fig:Q2-3_calcule_val_abs} sur la
 	\label{fig:Q2-3_calcule_val_abs}
 \end{figure}
 
-À la vu de ces résultats on peut dire que sur chaque résultat la couleur blanche est le "bruit" qui sépare l'image binarisé de la classification parfaite de ses éléments. 
+À la vu de ces résultats on peut dire que sur chaque résultat la couleur blanche est le \emph{bruit} qui sépare l'image binarisée de la classification parfaite de ses éléments. 
 
-Pour les deux premières images il n'y a pas beaucoup de "bruit" et donc on distingue bien les cercles. Par contre pour le reste des images cela devient de moins en moins évident de distingué ces cercles. On ne peut donc pas utiliser comme seul attribut de chaque pixel son niveau de gris pour la classification. Il faut plus d'information afin de mieux binarisée chaque image et obtenir de meilleur résultat.
+Pour les deux premières images il n'y a pas beaucoup de \emph{bruit} et donc on distingue bien les cercles. Par contre pour le reste des images cela devient de moins en moins évident de distinguer ces cercles. On ne peut donc pas utiliser comme seul attribut de chaque pixel son niveau de gris pour la classification. Il faut plus d'information afin de mieux binariser chaque image et obtenir de meilleurs résultats.
 
 \section{Histogramme des niveaux de texture}
 
 \subsection{Comment la fonction \emph{rdfTextureEcartType} détermine le niveau de texture pour chaque pixel de l'image ?}
 
-??????????????????????? \\
-??????????????????????? \\
-??????????????????????? \\
+La fonction \emph{rdfTextureEcartType} calcule d'abord la moyenne pour chaque pixel de l'image grâce à la fonction \emph{rdfMoyenneImage}. La fonction \emph{rdfMoyenneImage} a pour but de créer une matrice qui servira de filtre puis  l'applique à chacun des pixels de l'image passée en paramètre. Ensuite la fonction \emph{rdfTextureEcartType} calcule la variance suivie de l'écart type. 
+
+Cette fonction normalise la matrice puisque le passage au carré modifie grandement les valeurs calculées. Ainsi, on assure que le résultat retourné possède une fourchette de valeurs similaire à celle de l'image passée en argument.
+
 
 \subsection{Calcule de l'histogramme de chacune de ces images de niveau de texture en utilisant un voisinage carré de taille 5x5}
 
@@ -228,38 +232,73 @@ binaire4 = rdfClassifieurLineaire1D (imageNT4, -1, seuil);
 imshow ([binaire,binaire1,binaire2,binaire3,binaire4]);
 \end{verbatim}
 
-Après l'exécution du code suivant on obtient la ~Fig.~\ref{fig:Q3-2_images_binarisees}
+Après l'exécution du code suivant on obtient la Fig.~\ref{fig:Q3-2_images_binarisees}
 
 \begin{figure}[ht]
 \begin{center}
 	\includegraphics[width=13cm, height=4cm]{Q3-2_images_binarisees.png}
 \end{center}
-	\caption{Images texture-0 à 4 en niveau de texture puis binarisées respectivement aux seuil: 0.7, 0.56, 0.57, 0.6, 0.55}
+	\caption{Images texture-0 à 4 en niveau de texture puis binarisées respectivement aux seuils : 0.7, 0.56, 0.57, 0.6, 0.55}
 	\label{fig:Q3-2_images_binarisees}
 \end{figure}
 
-Ensuite afin de se rendre compte de la différence entre l'image binarisé et l'image de référence nous allons  effectuer le même calcul et affichage des résultats que vu précédemment dans la partie 2.3.
+Ensuite afin de se rendre compte de la différence entre l'image binarisée et l'image de référence nous allons  effectuer le même calcul et affichage des résultats que vu précédemment dans la partie 2.3.
 
-Ce qui nous donnera la ~Fig.~\ref{fig:Q3-2_calcule_val_abs} \\
+Ce qui nous donnera la Fig.~\ref{fig:Q3-2_calcule_val_abs} \\
 
 \begin{figure}[ht]
 \begin{center}
 	\includegraphics[width=4cm, height=9cm]{Q3-2_calcule_val_abs.png}
 \end{center}
-	\caption{}
+	\caption{Présentation du résultat idéal (à gauche), le résultat obtenue (au centre), et l'erreur entre les deux (à droite)} 
 	\label{fig:Q3-2_calcule_val_abs}
 \end{figure}
 
-Au vu de ces résultats nous pouvons ????????????????????? \\
-??????????????????????????????????????????????? \\
-????????????????????????????????????????? \\
+Au vu de ces résultats nous pouvons en conclure que même si on passe en image de niveau de texture le \emph{bruit} reste important pour certaines images. On observe que pour des images qui ont des textures bien distincts à la base, on obtient plus de bruit car la moyenne des valeurs au niveau de la jonction entre ces textures très différentes donne un nouvelle valeur qui produit du bruit. On peut donc en conclure qu'on ne peut  pas utiliser comme seul attribut de chaque pixel son niveau de texture pour la classification. 
 
+Au vu des résultats sur la classification en niveau de gris et en niveau de texture on peut se demander si il ne faudrait pas plus d'un classificateur par pixels ?
+
+
+\newpage
+\section{Histogramme conjoint}\subsection{fonction \emph{rdfCalculeHistogramme2D} qui permet de calculer l'histogramme conjoint des deux attributs}
+\begin{verbatim}
+function hist = rdfCalculeHistogramme2D (image1, bins1, image2, bins2)  result = zeros (bins2, bins1);  for y = 1:size (image1, 1)    for x = 1:size (image1, 2)        j = int (image1 (y, x) * (bins1 - 1)) + 1;        i = int (image2 (y, x) * (bins2 - 1)) + 1;        result (i,j) = result (i,j) + 1;    end  end  // Version logarithmique  result = log (1 + result);  // Normalisation a une valeur maximale = 1  hist = result / max (result);endfunction
+\end{verbatim}
+
+Cette méthode consiste principalement à récupérer les valeurs des deux images afin de construire les points de l'histogramme vu comme une image 2D.
+\section{Classification linéaire à deux dimensions}
+\subsection{Pour chacune des 5 images déterminer les histogrammes conjoints}\begin{figure}[ht]
+\begin{center}
+     \includegraphics[width=15cm]{Q4-1_histo_conjoint}
+\end{center}
+     \caption{Histogramme conjoints}
+     \label{fig:Q4-1_histo_conjoint}
+\end{figure}
+
+La figure~\ref{fig:Q4-1_histo_conjoint} présente l'histogramme conjoints de chacune des 5 images. On voit se détacher deux zones claires, représentant pour la plus large le fond, et la plus petite les ronds. Au fur à mesure des images les ronds s'assombrissent, ce phénomène est retranscrit sur l'histogramme par la translation de la plus petite zone claire vers la gauche. Sur le dernier histogramme, on remarque que cette zone claire se trouve au centre de l'image, ceci s'expliquant par le fait que la couleur des ronds est proche de la couleur moyenne de l'image.\subsection{Déterminer approximativement la droite qui sépare au mieux les deux régions correspondant: 1) au fond de l'image; 2) aux 4 disques.}
+
+La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conjoints des 5 images, avec en plus le seuil entre le fond(1) et l'image (2) représenté en rouge.
+
+\begin{figure}[!h]
+\begin{center}
+     \includegraphics[width=15cm]{Q4-1_histo_conjoint_avec_seuil}
+\end{center}
+     \caption{Histogrammes conjoints avec en rouge le seuil séparant le fond de l'image}
+     \label{fig:Q4-1_histo_conjoint_avec_seuil}
+\end{figure}\subsection{Utiliser la fonction rdfClassifieurLineaire2D afin d'obtenir une image binaire à partir d'une classification linéaire 2D}??????????????????????? \\??????????????????????? \\??????????????????????? \\
+
+\newpage
+
+\begin{appendices} 
+
+\end{appendices}
 \begin{figure}[ht]
+\section*{Histogramme des niveaux de texture}
 \begin{center}
 	\includegraphics[width=13cm, height=8cm]{Q2-1_histo_texture0.png}
-\end{center}
 	\caption{Histogramme calculé à partir de l'image rdf-2-classes-texture-0.png en niveau de gris}
 	\label{fig:Q2-1_histo_texture0}
+\end{center}
 \end{figure}
 
 \begin{figure}[ht]
@@ -333,6 +372,5 @@ Au vu de ces résultats nous pouvons ????????????????????? \\
 	\caption{Histogramme calculé a partir de l'image rdf-2-classes-texture-4.png  en niveau de texture}
 	\label{fig:Q3-2_histo_en_niv_text_texture4}
 \end{figure}
-
 
 \end{document}
