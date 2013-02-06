@@ -77,9 +77,16 @@ endfunction
 
 // Calcul de l'ecart type normalise des voisinages carres d'une image
 function ect = rdfTextureEcartType (image, taille)
+    
   moyenne = rdfMoyenneImage (image, taille);
+  // print(%io(2),moyenne);
+  // variance
   carre = (image - moyenne) .^ 2;
+  // ecart type
   result = sqrt (rdfMoyenneImage (carre, taille));
+  // normalisation
+//  print(%io(2),max (result));
+  
   ect = result / max (result);
 endfunction
 
@@ -92,7 +99,9 @@ function hist = rdfCalculeHistogramme2D (image1, bins1, image2, bins2)
   result = zeros (bins2, bins1);
   for y = 1:size (image1, 1)
     for x = 1:size (image1, 2)
-      // A completer
+        j = int (image1 (y, x) * (bins1 - 1)) + 1;
+        i = int (image2 (y, x) * (bins2 - 1)) + 1;
+        result (i,j) = result (i,j) + 1;
     end
   end
   // Version logarithmique

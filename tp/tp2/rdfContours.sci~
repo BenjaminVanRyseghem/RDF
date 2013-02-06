@@ -157,14 +157,19 @@ function ncont = rdfAlgorithmeCorde (cont, dmax)
     // A modifier: le vecteur d, de meme taille que le vecteur
     // 'cont' doit contenir les distances
     
-  
+    // Distances des autres points a la droite debut<->fin
+    // le vecteur d, de meme taille que le vecteur
+    // 'cont' doit contenir les distances
     
+    // si c est une droite verticale
     if real (debut) == real (fin)  then
         d = abs(real(cont) - real(debut))
     else
+        // on recupere le a et le b de ax + b
         a = (imag(fin) - imag(debut))/(real(fin) - real(debut))
         b = imag(fin) - a * real(fin)
         
+        // sinon si c est une droite horizontale
         if a == 0 then
             d = abs(imag(cont) - b)
         else
@@ -172,8 +177,7 @@ function ncont = rdfAlgorithmeCorde (cont, dmax)
         end
     end
     
-    
-    //d = zeros (cont);
+
     // Si maximum de d < dmax, retourner les extremites
     if max (d) < dmax then
       ncont = [debut; fin];
@@ -217,26 +221,7 @@ function vector = rdfAnnuleDescFourier(desc,ratio)
             vector = zeros(1,size)
         else
             index = int(ratio*size)
-              // print(%io(2),index)
-            if ratio <= 0.5 then
-              // print(%io(2),size/2)
-              // print(%io(2),size/2+1)
-               // print(%io(2),zeros(1,size/2))
-              //  print(%io(2),desc((size/2+1):(size/2+index))')
-               // print(%io(2),zeros(1,size - size/2-index-1))
-              //v = zeros(1,size/2)
-              //v1 = desc((size/2+1):(size/2+index))'
-                s = size/2;
-                s1 = size/2 + 1;
-                s2 = size/2 + index;
-                s3 = size - size/2 - index - 1;
-                vector = [ zeros(2,s) desc(s1:s2) zeros(2,s3)] 
-            else
-                s = index-size/2;
-                s1 = size-index;
-                s
-                vector = [ desc(1:)' zeros(1,) desc(():$)' ]
-            end
+            vector = [desc(1:index)' zeros(1,size-index) ]'
          end
     end
     

@@ -1,0 +1,178 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{TD : Les filtres de Laws}
+\author{François \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section{Filtres de LAWS}
+\subsection{calculer les 5 images résultant du filtrage d'une image ligne contenant que des pixels blanc ou noire}
+
+Pour un pixel x de l'image et le filtre L5 (1, 4, 6, 4, 1) on a:
+$Res(x) = 1 *val(x-2) + 4 *val(x-1) + 6 *val(x) + 4 *val(x+1) + 1 *val(x+2)$
+
+Si la somme des coefficient est nulle alors le résultat sera null.
+Ici on ne considère pas les bords
+
+\begin{paragraph} {Filtre L5: 1, 4, 6, 4, 1}~ \\
+Image noire: -1,-1,-1,-1,-1  $\rightarrow$ res = -16 \\
+Image blanche: +1,+1,+1,+1,+1 $\rightarrow$  res = 16
+\end{paragraph}
+
+\begin{paragraph} {Filtre E5: -1, -2, 0, 2, 1}~ \\
+Image noire: -1,-1,-1,-1,-1  $\rightarrow$ res = 0 \\
+Image blanche: +1,+1,+1,+1,+1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre S5: -1, 0, 2, 0, -1}~ \\
+Image noire: -1,-1,-1,-1,-1  $\rightarrow$ res = 0 \\
+Image blanche: +1,+1,+1,+1,+1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre W5: -1, 2, 0, -2, 1}~ \\
+Image noire: -1,-1,-1,-1,-1  $\rightarrow$ res = 0 \\
+Image blanche: +1,+1,+1,+1,+1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre R5: 1, -4, 6, -4, 1}~ \\
+Image noire: -1,-1,-1,-1,-1  $\rightarrow$ res = 0 \\
+Image blanche: +1,+1,+1,+1,+1 $\rightarrow$  res = 0
+\end{paragraph}
+
+
+\subsection{calculer les 5 images résultant du filtrage d'une image ligne contenant une alternance de pixels blanc et noire}
+
+\begin{paragraph} {Filtre L5: 1, 4, 6, 4, 1}~ \\
+Image depart: -1, +1, -1, +1, -1  $\rightarrow$ res = 0 \\
+Image depart +1, -1, +1, -1, +1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre E5: -1, -2, 0, 2, 1}~ \\
+Image depart: -1, +1, -1, +1, -1  $\rightarrow$ res = 0 \\
+Image depart +1, -1, +1, -1, +1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre S5: -1, 0, 2, 0, -1}~ \\
+Image depart: -1, +1, -1, +1, -1  $\rightarrow$ res = 0 \\
+Image depart +1, -1, +1, -1, +1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre W5: -1, 2, 0, -2, 1}~ \\
+Image depart: -1, +1, -1, +1, -1  $\rightarrow$ res = 0 \\
+Image depart +1, -1, +1, -1, +1 $\rightarrow$  res = 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre R5: 1, -4, 6, -4, 1}~ \\
+Image depart: -1, +1, -1, +1, -1  $\rightarrow$ res = -16 \\
+Image depart +1, -1, +1, -1, +1 $\rightarrow$  res = 16
+\end{paragraph}
+
+\subsection{combien d'alternances +/- trouve-t-on dans la série de coéfficients définissant chaque filtre ?}
+
+Filtre L5: 0\\
+Filtre E5: 1\\
+Filtre S5: 2\\
+Filtre W5: 3\\
+Filtre R5: 4 
+
+\subsection{Pour chaque filtre de Laws, peut-on trouver une texture, c'est-à-dire un arrangement périodique de valeurs binaires, pour lequel la valeur absolue de la réponse est le plus souvent maximale ?}
+
+\begin{paragraph} {Filtre L5: 1, 4, 6, 4, 1}~ \\
+Valeur maximale = 1, 1, 1, 1, 1, 1, 1, 1 \\
+Valeur maximale res = 16, 16, 16, 16, 16, 16,...
+Changement de signe pour une périodicité de 8 : 0
+\end{paragraph}
+
+\begin{paragraph} {Filtre E5: -1, -2, 0, 2, 1}~ \\
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+& & & & & & & & & & & resultat (doit toujours etre max) \\
+ \hline
+texture &-1 & -1 & -1 & 1 & 1 & 1 & 1 & -1 & -1 & -1 &  (valeurs rajoutées pr avoir une val max)\\
+\hline
+arrangement & 1 & 2 & 0 & 2 & 1 & & &  &&& 6 \\
+\hline
+arrangement &  & 1 & 2 & 0 & 2 & 1 &  &  &&&  6\\
+\hline
+arrangement &  &  & 1 & -2 & 0 & 2 & 1 &  & && 2\\
+\hline
+arrangement &  &  &  & -1 & -2 & 0 & 2 & -1 & && -2\\
+\hline
+arrangement &  &  &  &  & -1 & -2 & 0 & -2 &-1 && -6\\
+\hline
+arrangement &  &  &  &  &  & -1 & -2 & 0 &-2 &-1& -6\\
+\hline
+\end{tabular} \\
+
+Valeur maximale = -1, -1, -1, 1, 1, 1, 1, -1 \\
+Valeur maximale res  =  6, 2, -2, -6, -6, -2, 2, 6
+Changement de signe pour une périodicité de 8 : 2
+\end{paragraph}
+
+\begin{paragraph}  {Filtre S5: -1, 0, 2, 0, -1}~ \\
+Valeur maximale = 1,1,-1,-1 \\
+Valeur maximale res  =  4,4,-4,-4
+ Changement de signe pour une périodicité de 8 : 4
+\end{paragraph}
+
+\begin{paragraph} {Filtre W5: -1, 2, 0, -2, 1}~ \\
+Valeur maximale = -1, -1, 1, -1, 1, 1, -1, 1\\
+Valeur maximale res  =  6, 2, 2, 6, 6, 2, 2, 6 (les signes sont faux)
+Changement de signe pour une périodicité de 8 : 6
+\end{paragraph}
+
+\begin{paragraph} {Filtre R5: 1, -4, 6, -4, 1}~ \\
+Valeur maximale = -1, 1 \\
+Valeur maximale res  =  16, -16, 16, -16, ......
+Changement de signe pour une périodicité de 8 : 8
+\end{paragraph}
+
+\subsection{Indices de texture}
+
+\subsection{Calculer le coefficient de pondération qui permet de garantir que l'indice de texture prend toujours une valeur comprise entre 0 et 1}
+
+\begin{paragraph} {Filtre L5: 1, 4, 6, 4, 1}~ \\
+pour 4 pixel:
+En prenant la somme des valeurs absolu on peut avoir une valeur max = 64 \\
+Valeur maximale res = 16, 16, 16, 16, 16, 16
+res = 1/64
+\end{paragraph}
+
+\begin{paragraph} {Filtre E5: -1, -2, 0, 2, 1}~ \\
+res = 1/16
+\end{paragraph}
+
+\begin{paragraph} {Filtre R5: 1, -4, 6, -4, 1}~ \\
+res = 1/16
+\end{paragraph}
+
+\begin{paragraph}  {Filtre S5: -1, 0, 2, 0, -1}~ \\
+res = 1/16
+\end{paragraph}
+
+\begin{paragraph} {Filtre W5: -1, 2, 0, -2, 1}~ \\
+res = 1/64
+\end{paragraph}
+
+
+\subsection{Calculer les indices de texture obtenus pour la ligne de pixels de la figure 2 pour le filtre L5 normalisé et R5 normalisé}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
