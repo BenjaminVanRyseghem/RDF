@@ -3,7 +3,7 @@
 \usepackage[toc,page]{appendix} 
 
 
-\title{TP2 : Codage d'un contour}
+\title{TP3 : Segmentation par classification}
 \author{Benjamin \bsc{Van Ryseghem} \\ François \bsc{Lepan}}
 
 \begin{document}
@@ -214,19 +214,19 @@ imageNT2 = rdfTextureEcartType(image2,5);
 imageNT3 = rdfTextureEcartType(image3,5);
 imageNT4 = rdfTextureEcartType(image4,5);
 
-seuil = 0.7;
+seuil = 0.46;
 binaire = rdfClassifieurLineaire1D (imageNT, 1, -seuil);
 
-seuil = 0.56;
+seuil = 0.285;
 binaire1 = rdfClassifieurLineaire1D (imageNT1, -1, seuil);
 
-seuil = 0.57;
+seuil = 0.4;
 binaire2 = rdfClassifieurLineaire1D (imageNT2, -1, seuil);
 
-seuil = 0.6;
+seuil = 0.35;
 binaire3 = rdfClassifieurLineaire1D (imageNT3, -1, seuil);
 
-seuil = 0.55;
+seuil = 0.33;
 binaire4 = rdfClassifieurLineaire1D (imageNT4, -1, seuil);
 
 imshow ([binaire,binaire1,binaire2,binaire3,binaire4]);
@@ -238,7 +238,7 @@ Après l'exécution du code suivant on obtient la Fig.~\ref{fig:Q3-2_images_binari
 \begin{center}
 	\includegraphics[width=13cm, height=4cm]{Q3-2_images_binarisees.png}
 \end{center}
-	\caption{Images texture-0 à 4 en niveau de texture puis binarisées respectivement aux seuils : 0.7, 0.56, 0.57, 0.6, 0.55}
+	\caption{Images texture-0 à 4 en niveau de texture puis binarisées respectivement aux seuils : 0.46, 0.285, 0.4, 0.35, 0.33}
 	\label{fig:Q3-2_images_binarisees}
 \end{figure}
 
@@ -310,15 +310,56 @@ La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conj
 
 \subsection{Utiliser la fonction rdfClassifieurLineaire2D afin d'obtenir une image binaire à partir d'une classification linéaire 2D}
 
-??????????????????????? \\
-??????????????????????? \\
-??????????????????????? \\
+\begin{verbatim}
+seuil = -0.1;
+binaire = rdfClassifieurLineaire2D (image, img_text,1,-1, seuil);
+
+seuil = -0.139;
+binaire1 = rdfClassifieurLineaire2D (image1, img_text, 1,-1, seuil);
+
+seuil = 0.65;
+binaire2 = rdfClassifieurLineaire2D (image2, img_text, -1,-1, seuil);
+
+seuil = 0.68;
+binaire3 = rdfClassifieurLineaire2D (image3, img_text, -1,-1, seuil);
+
+seuil = 0.79;
+binaire4 = rdfClassifieurLineaire2D (image4, img_text, -1,-1, seuil);
+
+// calcule du résultat
+resultat = abs(binaire-imgReference);
+resultat1 = abs(binaire1-imgReference);
+resultat2 = abs(binaire2-imgReference);
+resultat3 = abs(binaire3-imgReference);
+resultat4 = abs(binaire4-imgReference);
+
+// affichage
+imshow ([imgReference,binaire,resultat;
+         imgReference,binaire1,resultat1;
+         imgReference,binaire2,resultat2;
+         imgReference,binaire3,resultat3;
+         imgReference,binaire4,resultat4]); 
+\end{verbatim}
+
+Après l'exécution du code suivant on obtient la Fig.~\ref{fig:Q5-3_calcule_val_abs}
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=4cm, height=9cm]{Q5-3_calcule_val_abs.png}
+\end{center}
+	\caption{Présentation du résultat idéal (à gauche), le résultat obtenue (au centre), et l'erreur entre les deux (à droite)}
+	\label{fig:Q5-3_calcule_val_abs}
+\end{figure}
+
+On constate que cette fois sur la figure~\ref{fig:Q5-3_calcule_val_abs}, en combinant les deux attributs des pixels, on réussit à obtenir dans les cinq cas une image résultante (au milieu) proche du résultat optimal (à gauche).
+
+De ce fait, on peut en déduire que nous pouvons utiliser la combinaison des deux attributs comme attribut du pixel.
+
+On peut aussi généraliser en disant que plus d'attributs de classification sont combinés, plus le résultat peut être fin (proche du résultat optimal).
 
 \newpage
 
 \begin{appendices} 
-
-\end{appendices}
 
 \begin{figure}[ht]
 \section*{Histogramme des niveaux de texture}
@@ -400,5 +441,8 @@ La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conj
 	\caption{Histogramme calculé a partir de l'image rdf-2-classes-texture-4.png  en niveau de texture}
 	\label{fig:Q3-2_histo_en_niv_text_texture4}
 \end{figure}
+\end{appendices}
+
+%\signature
 
 \end{document}

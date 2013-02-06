@@ -157,14 +157,20 @@ function ncont = rdfAlgorithmeCorde (cont, dmax)
     // A modifier: le vecteur d, de meme taille que le vecteur
     // 'cont' doit contenir les distances
     
-  
+    // Distances des autres points a la droite debut<->fin
+    // le vecteur d, de meme taille que le vecteur
+    // 'cont' doit contenir les distances
     
+    // si c est une droite verticale
     if real (debut) == real (fin)  then
         d = abs(real(cont) - real(debut))
     else
+        
         a = (imag(fin) - imag(debut))/(real(fin) - real(debut))
         b = imag(fin) - a * real(fin)
         
+        
+        // sinon si c est une droite horizontale
         if a == 0 then
             d = abs(imag(cont) - b)
         else
@@ -172,8 +178,7 @@ function ncont = rdfAlgorithmeCorde (cont, dmax)
         end
     end
     
-    
-    //d = zeros (cont);
+
     // Si maximum de d < dmax, retourner les extremites
     if max (d) < dmax then
       ncont = [debut; fin];

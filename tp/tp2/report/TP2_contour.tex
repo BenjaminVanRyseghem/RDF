@@ -9,8 +9,8 @@
 
 \section{Codage d'un contour}
 
-\subsection{Cont}
-Les points du contour sont stockés dans la variable sous forme d'une liste de nombres complexes.
+\subsection{Comment sont codés les points du contour dans la variable cont?}
+Les points du contour sont stockés dans la variable sous forme d'une liste de nombres complexes. La valeur réel correspondant à $x$ et la valeur imaginaire à $y$.
 
 \subsection{En ne conservant qu'un point sur 4, puis un point sur 8, constituer deux autres contours approchant la forme circulaire et les afficher respectivement en bleu et en vert dans la même fenêtre}
 
@@ -27,7 +27,7 @@ rdfAfficheContour(cont2, 2, "g");
 rdfAfficheContour(cont3, 2, "b");
 \end{verbatim}
 
-L'exécution du code précédent fournit la Fig.~\ref{fig:1_sur_4__1_sur_8}, sur laquelle apparaissent trois contour. Il y a d'abord le contour initiale d'une forme circulaire représentée en rouge.
+L'exécution du code précédent fournit la Fig.~\ref{fig:1_sur_4__1_sur_8}, sur laquelle apparaissent trois contours. Il y a d'abord le contour initial d'une forme circulaire représentée en rouge.
 
 Il s'y trouve également le contour vert résultant du codage du contour original en ne conservant qu'un point sur quatre. 
 
@@ -35,7 +35,7 @@ Enfin, il y a le contour bleu représentant le codage du contour original en ne g
 
 \begin{figure}[ht]
 	\begin{center}
-		\includegraphics[width=8cm]{1_sur_4__1_sur_8.png}
+		\includegraphics[width=13cm]{1_sur_4__1_sur_8.png}
 	\end{center}
 	\caption{rouge: contours initial \_\_ vert: 1 sur 4 \_\_ bleu: 1 sur 8}
 	\label{fig:1_sur_4__1_sur_8}
@@ -45,7 +45,7 @@ Enfin, il y a le contour bleu représentant le codage du contour original en ne g
 \section{Descripteur de Fourier}
 
 \subsection{Pourquoi la fonction rdfDescFourier élimine t'elle parfois un point de la liste des points du contour?}
-Pour plus de performance dans le calcule des descripteurs de Fourier
+Pour plus de performance dans le calcule des descripteurs de Fourier.
 
 \subsection{Vérifier que les descripteurs de Fourier permettent de reconstituer le contour initial}
 Voici le code correspondant:
@@ -55,7 +55,7 @@ rdfAfficheContour (rdfInverseDescFourier(descFour), 1, "k");
 \end{verbatim}
 
 \subsection{Quel est l'indice de tableau correspondant au descripteur Z0 ?}
-Il se situe à la moitié de la taille du tableau.
+C'est le premier élément du tableau.
 
 \subsection{Expliquer l'utilité de la fonction rdfValeurDescFourier}
 Cette fonction sert à afficher la valeur d'un point de la liste des descripteurs de Fourier 
@@ -63,7 +63,7 @@ Cette fonction sert à afficher la valeur d'un point de la liste des descripteurs
  \subsection{À quoi correspond le descripteur de Fourier $Z_0$ d'une forme décrite par son contour?}
  C'est le barycentre de la forme.
  
- On observe que si on change sa valeur on effectue une translation.
+ On observe que si on change sa valeur on effectue une translation de l'image.
  
 \begin{verbatim}
 nom1 = "cercle-80.txt";
@@ -76,11 +76,11 @@ rdfAfficheContour(rdfInverseDescFourier(descFour), 2, "r");
 rdfAfficheContour(rdfInverseDescFourier(descFour1), 2, "g");
 \end{verbatim}
 
-Le résultat de cette exécution fournit la Fig. ~\ref{fig:chgmt_z0}, on y retrouve les deux contours du cercle. Le premier en rouge est la figure initial et le deuxième contour celui du même cercle mais translater de 5.
+Le résultat de cette exécution fournit la Fig.~\ref{fig:chgmt_z0}, on y retrouve les deux contours du cercle. Le premier en rouge est la figure initial et le deuxième contour celui du même cercle mais translater de 5 unités.
 
 \begin{figure}[ht]
 	\begin{center}
-		\includegraphics[width=8cm]{chgmt_z0.png}
+		\includegraphics[width=12cm]{chgmt_z0.png}
 	\end{center}
 	\caption{rouge: contours initial \_\_ vert: 1 sur 4 \_\_ bleu: 1 sur 8}
 	\label{fig:chgmt_z0}
@@ -113,7 +113,7 @@ Lorsque nous réduisons le ratio il se trouve qu'en effet la forme se simplifie (
 
 \begin{figure}[ht]
 	\begin{center}
-			\includegraphics[width=8cm]{simplification_forme_desc_fourier.png}
+			\includegraphics[width=10.7cm]{simplification_forme_desc_fourier.png}
 	\end{center}
 	\caption{Annulation des descripteurs de Fourrier: rouge: contour initial, bleu: ratio = 0.7, vert: ratio = 0.05}
 	\label{fig:reduction_fourrier}
@@ -125,12 +125,20 @@ Lorsque nous réduisons le ratio il se trouve qu'en effet la forme se simplifie (
 
 Voici le code que nous avons mis pour rdfAlgorithmeCorde:
 \begin{verbatim}
+
+    // Distances des autres points a la droite debut<->fin
+    // le vecteur d, de meme taille que le vecteur
+    // 'cont' doit contenir les distances
+
+    // si c'est une droite verticale
     if real (debut) == real (fin)  then
         d = abs(real(cont) - real(debut))
     else	
+        // on recupere le a et le b de ax + b
         a = (imag(fin) - imag(debut))/(real(fin) - real(debut))
         b = imag(fin) - a * real(fin)
         		
+        // si c'est une droite horizontale
         if a == 0 then
             d = abs(imag(cont) - b)
         else
@@ -140,24 +148,26 @@ Voici le code que nous avons mis pour rdfAlgorithmeCorde:
 \end{verbatim}
 
 
-Et on observe bien que si on augmente \verb?dmax? on réduit bien le contour (\emph{c.f.}~Fig.~\ref{fig:reduction_chaine_cont})
+
+Et on observe bien que si on augmente \verb?dmax? on réduit bien le nombre de point du contour (\emph{c.f.}~Fig.~\ref{fig:reduction_chaine_cont})
 
 
 \begin{figure}[ht]
 	\begin{center}
-     		\includegraphics[width=8cm]{reduc_chaine_cont.png}
+     		\includegraphics[width=9cm]{reduc_chaine_cont.png}
 	\end{center}
 	\caption{Réduction d'une chaine de contours. rouge: contours initial \_\_ vert:  Cordes avec dmax=0.5 \_\_ bleu  Cordes avec dmax=1}
+	\label{fig:reduction_chaine_cont}
 	
 \end{figure}
 
 \section{Comparaison des deux approches}
 
-Après avoir fait quelques tests nous nous sommes rendu compte que pour des formes connexes (triangles, carres, cercles) l'algorithme des cordes est mieux car beaucoup plus rapide que celui des descripteurs de Fourier. Cependant, dans les deux cas le l'approximation est correcte (\emph{c.f.}~Fig.~\ref{fig:comp_fourier}).
+Après avoir fait quelques tests nous nous sommes rendu compte que pour des formes connexes (triangles, carres, cercles) l'algorithme des cordes est mieux car beaucoup plus rapide que celui des descripteurs de Fourier. Cependant, dans les deux cas l'approximation est correcte (\emph{c.f.}~Fig.~\ref{fig:comp_fourier}).
 
 \begin{figure}[ht]
 	\begin{center}
-		\includegraphics[width=8cm]{cmp_fourier_normale.png}
+		\includegraphics[width=12cm]{cmp_fourier_normale.png}
 	\end{center}
 	\caption{rouge: contours initial \_\_ vert: Fourier avec ratio=0.95 \_\_ bleu: Cordes avec dmax=1}
 	\label{fig:comp_fourier}
