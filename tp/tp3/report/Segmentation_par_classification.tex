@@ -1,7 +1,9 @@
  \documentclass[a4paper,10pt]{article}
-\input{../../../LaTeX/macro.tex}
-\usepackage[toc,page]{appendix} 
 
+\def\pathprefix{../../../LaTeX}
+\usepackage[toc,page]{appendix} 
+\input{\pathprefix/macro.tex}
+\graphicspath{{./} {\pathprefix/}}
 
 \title{TP2 : Codage d'un contour}
 \author{Benjamin \bsc{Van Ryseghem} \\ François \bsc{Lepan}}
@@ -10,7 +12,7 @@
 \maketitle
 
 \section{Code Scilab}
-\subsection{A quoi correspond l'argument bins de la fonction rdfCalculeHistogramme1D?}
+\subsection{A quoi correspond l'argument bins de la fonction rdfCalculeHistogramme1D ?}
 
 \emph{bins} permet de définir le pas de l'histogramme. De ce fait, \emph{bins} définit aussi la taille de l'histogramme résultant (\emph{bins}+1).
  De plus, plus \emph{bins} est grand, plus l'histogramme est précis, c'est à dire, proche de l'image originale.
@@ -260,14 +262,33 @@ Au vu des résultats sur la classification en niveau de gris et en niveau de text
 
 
 \newpage
-\section{Histogramme conjoint}\subsection{fonction \emph{rdfCalculeHistogramme2D} qui permet de calculer l'histogramme conjoint des deux attributs}
-\begin{verbatim}
-function hist = rdfCalculeHistogramme2D (image1, bins1, image2, bins2)  result = zeros (bins2, bins1);  for y = 1:size (image1, 1)    for x = 1:size (image1, 2)        j = int (image1 (y, x) * (bins1 - 1)) + 1;        i = int (image2 (y, x) * (bins2 - 1)) + 1;        result (i,j) = result (i,j) + 1;    end  end  // Version logarithmique  result = log (1 + result);  // Normalisation a une valeur maximale = 1  hist = result / max (result);endfunction
+\section{Histogramme conjoint}
+\subsection{fonction \emph{rdfCalculeHistogramme2D} qui permet de calculer l'histogramme conjoint des deux attributs}
+
+\begin{verbatim}
+function hist = rdfCalculeHistogramme2D (image1, bins1, image2, bins2)
+  result = zeros (bins2, bins1);
+  for y = 1:size (image1, 1)
+    for x = 1:size (image1, 2)
+        j = int (image1 (y, x) * (bins1 - 1)) + 1;
+        i = int (image2 (y, x) * (bins2 - 1)) + 1;
+        result (i,j) = result (i,j) + 1;
+    end
+  end
+  // Version logarithmique
+  result = log (1 + result);
+  // Normalisation a une valeur maximale = 1
+  hist = result / max (result);
+endfunction
 \end{verbatim}
 
 Cette méthode consiste principalement à récupérer les valeurs des deux images afin de construire les points de l'histogramme vu comme une image 2D.
-\section{Classification linéaire à deux dimensions}
-\subsection{Pour chacune des 5 images déterminer les histogrammes conjoints}\begin{figure}[ht]
+
+\section{Classification linéaire à deux dimensions}
+
+\subsection{Pour chacune des 5 images déterminer les histogrammes conjoints}
+
+\begin{figure}[ht]
 \begin{center}
      \includegraphics[width=15cm]{Q4-1_histo_conjoint}
 \end{center}
@@ -275,7 +296,9 @@ Cette méthode consiste principalement à récupérer les valeurs des deux images af
      \label{fig:Q4-1_histo_conjoint}
 \end{figure}
 
-La figure~\ref{fig:Q4-1_histo_conjoint} présente l'histogramme conjoints de chacune des 5 images. On voit se détacher deux zones claires, représentant pour la plus large le fond, et la plus petite les ronds. Au fur à mesure des images les ronds s'assombrissent, ce phénomène est retranscrit sur l'histogramme par la translation de la plus petite zone claire vers la gauche. Sur le dernier histogramme, on remarque que cette zone claire se trouve au centre de l'image, ceci s'expliquant par le fait que la couleur des ronds est proche de la couleur moyenne de l'image.\subsection{Déterminer approximativement la droite qui sépare au mieux les deux régions correspondant: 1) au fond de l'image; 2) aux 4 disques.}
+La figure~\ref{fig:Q4-1_histo_conjoint} présente l'histogramme conjoints de chacune des 5 images. On voit se détacher deux zones claires, représentant pour la plus large le fond, et la plus petite les ronds. Au fur à mesure des images les ronds s'assombrissent, ce phénomène est retranscrit sur l'histogramme par la translation de la plus petite zone claire vers la gauche. Sur le dernier histogramme, on remarque que cette zone claire se trouve au centre de l'image, ceci s'expliquant par le fait que la couleur des ronds est proche de la couleur moyenne de l'image.
+
+\subsection{Déterminer approximativement la droite qui sépare au mieux les deux régions correspondant: 1) au fond de l'image; 2) aux 4 disques.}
 
 La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conjoints des 5 images, avec en plus le seuil entre le fond(1) et l'image (2) représenté en rouge.
 
@@ -285,7 +308,13 @@ La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conj
 \end{center}
      \caption{Histogrammes conjoints avec en rouge le seuil séparant le fond de l'image}
      \label{fig:Q4-1_histo_conjoint_avec_seuil}
-\end{figure}\subsection{Utiliser la fonction rdfClassifieurLineaire2D afin d'obtenir une image binaire à partir d'une classification linéaire 2D}??????????????????????? \\??????????????????????? \\??????????????????????? \\
+\end{figure}
+
+\subsection{Utiliser la fonction rdfClassifieurLineaire2D afin d'obtenir une image binaire à partir d'une classification linéaire 2D}
+
+??????????????????????? \\
+??????????????????????? \\
+??????????????????????? \\
 
 \newpage
 
@@ -373,4 +402,6 @@ La figure~\ref{fig:Q4-1_histo_conjoint_avec_seuil} reprend les histogrammes conj
 	\label{fig:Q3-2_histo_en_niv_text_texture4}
 \end{figure}
 
+
+\signature
 \end{document}
