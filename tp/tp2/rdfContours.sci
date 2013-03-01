@@ -165,10 +165,9 @@ function ncont = rdfAlgorithmeCorde (cont, dmax)
     if real (debut) == real (fin)  then
         d = abs(real(cont) - real(debut))
     else
-        
+        // on recupere le a et le b de ax + b
         a = (imag(fin) - imag(debut))/(real(fin) - real(debut))
         b = imag(fin) - a * real(fin)
-        
         
         // sinon si c est une droite horizontale
         if a == 0 then
