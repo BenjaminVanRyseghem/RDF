@@ -1,9 +1,42 @@
-function frequences = frequencesMatrix(x_train,ds)
+//loadmatfile('mnist_all.mat');
+
+function frequences = frequencesMatrix(x_train)
+    frequences = ones(10, 256)
+    for i = 0 : 9
+        sub = x_train((i*n+1):(i+1)*n,:)
+        sorted = (tabul(sub,'i'))
+        sub = sorted(:,2)
+        tsub = sub'
+        frequences(i+1,:) = tsub
+    end
+    frequences = frequences / (n*size(x_train,2))
+endfunction
+
+function classe=estimate(f, fs)
+    size = size(fs,1)
+    post = ones(size,1)
+    for i=1:size
+        fsi = fs(i,:)
+        
+        p = 1/10
+        for j=1:(size(fsi,2))
+            p = p * fsi(j)
+        end
+    end
     
 endfunction
 
+function y_estim=populateEstim(x_test, frequences)
+    size = size(x_test, 1)
+    for i = 1 : size
+        frequence = tabul(x_test(i,:),'i')
+        frequence = frequence(:,2)
+        frequence = frequence'
+        y_estim(i) = estimate(frequence, frequences)
+    end
+endfunction
 
-//loadmatfile('mnist_all.mat');
+
 
 n=200; 
 
@@ -33,8 +66,9 @@ allFeatureVals = 0:255;
 //  La ligne numero i de la matrice x_train correspond a la i'eme image, 
 //      et l'element i de y_train est sa vrai classe
 
-matriceFrequence = 
- 
+matriceFrequence = frequencesMatrix(x_train);
+
+
 
 
 //2. tester: estimer une classe pour chaque ligne de la matrice x_test 
