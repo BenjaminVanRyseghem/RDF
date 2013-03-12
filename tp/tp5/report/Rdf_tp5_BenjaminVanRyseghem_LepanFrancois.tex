@@ -8,10 +8,54 @@
 \maketitle 
 
 \section{Visualiser les Donnees}
-Afin de de visualiser les autres chiffres manuscrits il suffit de changer le nom de Train0 en Train$N$ où $N$ est le chiffre à visualiser.
+
+\begin{verbatimtab}
+y = matrix(train0(1,:),28,28)';
+Matplot(y);
+\end{verbatimtab}
+
+Afin de de visualiser les autres chiffres manuscrits il suffit de changer le nom de train0 en train$N$ où $N$ est le chiffre à visualiser.
 
 \section{L'algorithme de plus proche voisin ou kNN}
 
-\subsection{Est-ce que les résultats changes }
+\subsection{Est-ce que les résultats changent si $\displaystyle d^2(x, y)=\Sigma^n_{i=1}(xi - yi)^2$ est utilisée comme distance?}
+
+Non car tout ce que l'on fait c'est comparer ces distances ($\geq 0$) donc leurs valeurs élevé au carré ne changeront rien lors de la comparaison.
+
+Ex: si a = 2 et b = 3
+
+$a < b \Rightarrow a^2 < b^2$
+
+$2 < 3 \Rightarrow 4 < 9$
+
+\subsection{Quelles sont les erreurs moyennes de classification pour k = 1, 3, 5, 10?}
+
+Pour k = 1 on a une erreur moyenne de 0.6885923. 
+
+Étant donné que la plupart des gens on 0.1 je me dit qu'il doit y avoir une erreur dans notre code mais je n'arrive pas à savoir où.
+
+\subsection{Cette approche est-elle supervisée ?}
+
+Oui cette approche est supervisée, car il faut l'alimenter de données d'entrainement afin de savoir comment classifier le nouvel élément entrant.
+
+\section{L’algorithme Naïve Bayes}
+
+\subsection{Quelle est l’hypothèse principale dans cette approche?}
+
+$P(X = (x1,…,xm~|~Ci)) = \prod_{j=1}^m P(xj | Ci)$ \\
+\\
+ Propriété: L'indépendance conditionnelle des attributs donc on peut faire le produit de ses éléments.
+ 
+\subsection{Calcul des erreurs de classification}
+
+???????????????????
+
+\subsection{Cette approche est-elle supervisée ?}
+
+Oui cette approche est supervisée, car elle utilise des données d'entrainement tout comme kNN.
+
+\subsection{Cette approche est-elle probabiliste ?}
+
+Oui car elle est basée sur la fréquence de chaque valeur (ici 0 $\rightarrow$ 255) quelque soit le point d’entrainement et quel que soit l’emplacement de cette valeur dans le point.
 
 \end{document}

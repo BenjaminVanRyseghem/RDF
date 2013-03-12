@@ -1,3 +1,8 @@
+function frequences = frequencesMatrix(x_train,ds)
+    
+endfunction
+
+
 //loadmatfile('mnist_all.mat');
 
 n=200; 
@@ -22,17 +27,20 @@ y_test = [  ones(size(test0,1), 1); ones(size(test1,1),1)*2;
 allFeatureVals = 0:255;
 
 
-// visualisation d'autre chiffres chager 0 en autre.
-y=matrix(train3(1,:),28,28)';
-
-Matplot(y);
-
 //1. entrainer le model Naive Bayes: 
-//i.e. calculer les frequences conditionelles des chiffres manuscrits en utilisant la matrice x_train et y_train). 
-//La ligne numero i de la matrice x_train corresponde a la i'eme image, et l'element i de y_train est sa vrai classe
+//  i.e. calculer les frequences conditionelles des chiffres manuscrits en 
+//      utilisant la matrice x_train et y_train). 
+//  La ligne numero i de la matrice x_train correspond a la i'eme image, 
+//      et l'element i de y_train est sa vrai classe
 
-//2. tester: estimer une classe pour chaque ligne de la matrice x_test et sauvegarder les classes 
-//dans un vecteur y_estim (de la meme taille que y_test )
+matriceFrequence = 
+ 
+
+
+//2. tester: estimer une classe pour chaque ligne de la matrice x_test 
+//  et sauvegarder les classes dans un vecteur y_estim 
+//  (de la meme taille que y_test )
+
 
 //3. calculer l'erreur en utilisant l'equation (1)
 
