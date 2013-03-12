@@ -1,12 +1,62 @@
-function frequences = frequencesMatrix(x_train,ds)
-    
+//stacksize('max')
+//loadmatfile('mnist_all.mat');
+
+function frequences = frequencesMatrix(x_train)
+    frequences = ones(10, 256)
+    for i = 0 : 9
+        sub = x_train((i*n+1):(i+1)*n,:)
+        sorted = (tabul(sub,'i'))
+        sub = sorted(:,2)
+        tsub = sub'
+        frequences(i+1,:) = tsub
+    end
+    frequences = frequences / (n*size(x_train,2))
 endfunction
 
+<<<<<<< HEAD
 t = tabul(sub,'i');
 
 frequences(i+1,:) = t(:,2)'
+=======
+function classe=estimate(f, fs)
+    sz = size(fs,1)
+    post = ones(sz,1)
+    for i=1:sz
+        fsi = fs(i,:)
+        p = 1/10
+        sz2 = size(fsi,2)
+        for j=1:(sz2)
+            p = p * fsi(j)
+        end
+        post(i)=p
+    end
+    //evidence est ignore car cst > 0
+    [foo, indice] =max(post)
+    classe = indice
+endfunction
+>>>>>>> 3bff6f2be77234d4c66d4ef60bfac094cd7b4a45
 
-//loadmatfile('mnist_all.mat');
+function y_estim=populateEstim(x_test, frequences)
+    sz = size(x_test,1)
+    for i = 1 : sz
+        line=x_test(i,:)
+        ff = tabul(line,'i')
+        f = ff(:,2)
+        tf = f'
+        y_estim(i) = estimate(tf, frequences)
+    end
+endfunction
+
+function err = calculateError(y_estim, y_test)
+    // y_estim ~= y_test create a matrix made of True and False 
+    // True if elements at the same places are equals
+    // False otherwise
+    // bool2s change True in 1 and False in 0
+    errors = bool2s(y_estim ~= y_test)
+    
+    // then get the average of the errors
+    err = mean(errors)
+endfunction
 
 n=200; 
 
@@ -36,14 +86,18 @@ allFeatureVals = 0:255;
 //  La ligne numero i de la matrice x_train correspond a la i'eme image, 
 //      et l'element i de y_train est sa vrai classe
 
-matriceFrequence = 
- 
+matriceFrequence = frequencesMatrix(x_train);
+
 
 
 //2. tester: estimer une classe pour chaque ligne de la matrice x_test 
 //  et sauvegarder les classes dans un vecteur y_estim 
 //  (de la meme taille que y_test )
+y_estim=populateEstim(x_test,matriceFrequence);
 
 
 //3. calculer l'erreur en utilisant l'equation (1)
 
+// Calculer l'erreur en utilisant l'equation (1)
+errorCalculated = calculateError(y_estim, y_test);
+errorCalculated
