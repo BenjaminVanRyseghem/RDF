@@ -2,6 +2,7 @@ function frequences = frequencesMatrix(x_train,ds)
     
 endfunction
 
+frequences(i+1,:) = (tabul(sub,'i'))'
 
 //loadmatfile('mnist_all.mat');
 
