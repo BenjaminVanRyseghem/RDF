@@ -1,0 +1,108 @@
+I. supervisé
+
+	Classification
+
+	On a n classe
+	{C1, C2, …, Cn}
+	{X1, X2, …, Xn} des exemplaire -> L'ensemble de training
+
+But: pour nouvel exemplaire x -> trouver la class d'où il viens
+
+ALGO -> kNN (nearest Neighbour) (
+
+	Pour le nouveau pt x {
+
+		calcule de distance {
+			d(x,x1) = sqrt(ENS[i=1->n](Xi - X1i)^2)
+			d(x,x2)
+			d(x,xn)
+		}
+		
+		trouver les k exemplaire(s) plus proche(s) de x
+
+		le reste à la majorité des k plus proche voisin
+	}
+)
+
+
+Théorème de Bayes ?
+
+| = "sachant que"
+
+
+-    On a N examplaire on a M classe 
+-    Et pour chaque classe on a Ki pts dans R
+
+-    p(x) = lim[n->inf] K / n*V
+-    V = volume de R = Pi r ^2
+
+Ens[i=1 -> N] Ni = N
+
+P( Classe de x = Ci |x ) = P (x| Ci) P(Ci) / P(x)
+
+P (x | Ci) = (ki / Ni*V)
+
+P (x) = (k / n*V)
+
+P (Ci) = Ni / N | (c'est la probabilité d'avoir plus de "0" que de "9")
+
+=> P(Ci | x) = ((Ki / NiV) * (Ni / N)) / (K / NV) = Ki / K
+
+
+ALGO -> Naive Bayes (
+	Hypothèse principale:  P(XFleche = (X1,…,Xd | Ci)) = PROD[j=1->D]P(Xj | Ci)
+	
+	Propriété: L'indépendance conditionnelle des attributs donc on peut faire le pros de ses éléments.
+
+x1 = X1,1 ; … ; X1,D 	et y1 = classe de x1
+.			   .
+.			   .
+.			   .
+xn = Xn,1 ; … ; Xn,D	   yn
+
+	But: On veut classifier X^nouveau
+
+	P (Ci | x = X1, … , Xd) = P (x| Ci) P(Ci) / P(x)
+
+	Maximum a posteriori on MAP
+	argmax( P(Ci | x) ) = argmax(P (x| Ci) P(Ci) / P(x)) 
+	i=1->N		    = argmax(P (x| Ci) P(Ci))
+			    = argmax(P(Ci) * PROD[j=1->D]P(Xj | Ci))
+	
+
+	P(Xj | Ci) = calculé la fréquence de chq attribut ds chaque classe
+	
+
+	argmax( log( p)) =  argmax (Ens[j=1->d](log(P (xj| Ci))) + log(P(Ci))  ) 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
