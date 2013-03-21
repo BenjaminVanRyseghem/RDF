@@ -1,0 +1,298 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{TP - RdF: Arbres de dŽcision}
+\author{Franois \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section{Question de bon sens}
+\subsection{Que vaut N ?}
+
+N vaut $2^{4+1}$ car pour quatre propositions on a toujours que deux possibilitŽ et le +1 pour arrivŽ ˆ la solution final.
+
+\subsection{Expliquer le raisonnement de B et calculer la quantitŽ dÕinformation que lui a donnŽe A par sa rŽponse}
+
+???????????????????\\
+???????????????????\\
+
+\section{Variante du jeu du pendu}
+
+\subsection{But du jeu}
+
+\begin{paragraph}{Si le programme est sžr de trouver la solution en au plus p questions, quelle est la relation entre n et p ? En dŽduire une valeur numŽrique minimale pour p.} ~ \\
+
+??????????????? \\
+??????????????? \\
+??????????????? 
+
+\end{paragraph}
+
+\subsection{Que fait ce code ?}
+
+\begin{verbatimtab}
+
+mat = zeros(35,n);
+
+for i = 1 : n
+	c = str2code(noms(i));
+	mat(c,i) = 1;
+end
+\end{verbatimtab}
+
+Ce code stock dans \emph{mat}, en colonnes, les lettres du mot qui sont prŽsentes (35 car "a" == 10).
+Pour cela on met 1 si la lettre est prŽsente (si elle est la deux fois on ne le saura pas).
+
+\subsection{Quelle lettre est la plus reprŽsentŽe ?}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\codeBlue{// retourne une matrice de 283 colonnes et 35 lignes contenant}
+\codeBlue{// pour chaque colonne un 1 ou un 0 si il contient la lettre correspondant ˆ}
+\codeBlue{// l'indice (a ˆ pour indice 10)}
+\codeRed{function} mat = presentLettersIn(noms)
+
+    n = size(noms,1);
+    
+    mat = zeros(35,n);
+    
+    for i = 1 : n
+        c = str2code(noms(i));
+        mat(c,i) = 1;
+    end
+
+\codeRed{endfunction}
+
+
+\codeRed{function} h = getNumberOfLetters(noms)
+    
+    \codeBlue{// on crŽer une colonne de 283 afin de faire une multiplication}
+    \codeBlue{// entre cette colonne et la matrice de 1 et 0 retournŽe par presentLettersIn}
+    \codeBlue{// afin de rŽcupŽrer une seul colonne de 35 contenant pour chaque element}
+    \codeBlue{// la somme des ŽlŽments de sa ligne.}
+    one = ones(size(noms,1),1);
+    
+    m = presentLettersIn(noms)
+    
+    h = m * one;
+
+\codeRed{endfunction}
+
+
+
+\codeRed{function} letter = mostPresentLettersIn(noms)
+    
+    h = getNumberOfLetters(noms);
+    
+    \codeBlue{// On rŽcupre l'indice de la lettre la plus prŽsente}
+    [value, mostPresentLetterCode] = max(h);
+
+    \codeBlue{// on transforme l'indice en lettre}
+    letter = code2str(mostPresentLetterCode);
+
+\codeRed{endfunction}
+
+\codeBlue{// Chargement de la base de noms d'animaux}
+exec("rdfAnimaux.txt");
+
+\codeBlue{// on rŽcupre la lettre la plus prŽsente dans tous les mots}
+letter = mostPresentLettersIn(noms)
+
+\end{Verbatim}
+
+Aprs exŽcution du code on obtient la lettre e.
+
+\subsection{Entropie}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeRed{function} resultat = entropie(noms, n)
+    
+    m = getNumberOfLetters(noms);
+    
+    resultat = - log((m./n).^(m./n)) - log((1 - m./n).^(1 - m./n))
+
+\codeRed{endfunction}
+\end{Verbatim}
+
+Voici la fonction qui permet de calculŽ l'entropie
+
+\subsection{Partage}
+?????????????????? \\
+?????????????????? \\
+??????????????????
+
+
+\subsection{Que fait ce code ?}
+
+\begin{verbatimtab}
+I=([1:n]>0);
+
+[A,B,i]=partage(I);code2str(i),sum(A),sum(B)
+[C,D,j]=partage(A);code2str(j),sum(C),sum(D)
+[E,F,k]=partage(B);code2str(k),sum(E),sum(F)
+\end{verbatimtab}
+
+Il affiche la rŽpartition des mots dans l'arbre. Pour le premier partage on ˆ 140 mots dans A et 143 dans B. Pour le partage de A on obtient deux ensembles C contenant 71 mots et D 69 mots. Et enfin pour le partage de B on obtient deux ensembles C contenant 70 mots et D 73 mots.
+
+Si on continu on aura pour chaque noeud le nombre de fils qu'il possde, pour chacun de ses fils le nombre de fils, etc.
+
+\subsection{L'arbre}
+
+\begin{paragraph}{Profondeur}~\\
+
+Afin de conna”tre la profondeur maximale de l'arbre il suffit de rajouter ces lignes en bleu ˆ la fonction \emph{arbre}:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeRed{function} \codeBlue{maxim} = arbre(I,str)
+    if (sum(I)>1) then
+        
+        [A,B,i] = partage(I);
+        \codeBlue{max1 =} arbre(A,str+'| ');
+        printf("\%s\%c (\%i,\%i)",str,code2str(i),sum(A),sum(B));
+        \codeBlue{max2 =} arbre(B,str+'| ');
+        
+        \codeBlue{maxim = 1 + max(max1,max2);}
+        
+    else
+        printf("\%s -> \%s",str,noms(I));
+        \codeBlue{maxim = 0;}
+    end
+
+\codeRed{endfunction}
+
+\end{Verbatim}
+
+Le rŽsultat est 10.
+
+\end{paragraph}
+~\\
+~\\
+
+\begin{paragraph}{Mots dŽfavorables}~\\
+
+Afin d'afficher les mots les plus dŽfavorables il faut rajouter ces lignes en bleu ˆ la fonction \emph{arbre}: 
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeRed{function} maxim = arbre(I,str\codeBlue{,currentDeepth,maxDeepth})
+
+    if (sum(I)>1) then
+
+        \codeBlue{currentDeepth = currentDeepth +1;}
+
+        [A,B,i] = partage(I);
+        
+        max1 = arbre(A,str+'| ',currentDeepth,maxDeepth);
+        
+        printf("\%s\%c (\%i,\%i)",str,code2str(i),sum(A),sum(B));
+        
+        max2 = arbre(B,str+'| ',currentDeepth,maxDeepth);
+        
+        maxim = 1 + max(max1,max2);
+
+    else
+
+        \codeBlue{if currentDeepth == maxDeepth then}
+            \codeBlue{global deepestElements;}
+            \codeBlue{deepestElements = [deepestElements noms(I)];}
+        \codeBlue{end}
+        
+        printf("\%s -> \%s",str,noms(I));
+        maxim = 0;
+    end
+
+\codeRed{endfunction}
+\end{Verbatim}
+
+Ainsi qu'une variable globale: \emph{global deepestElements;}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\codeBlue{global deepestElements;}
+// pour le vider ˆ chaque exŽcution
+\codeBlue{deepestElements = [];}
+
+maximum = arbre(I,' '\codeBlue{,0,10})
+
+\end{Verbatim}
+
+L'exŽcution du code prŽcŽdent nous fournis les animaux suivant: roussette,  tortue, hareng, panthere, merlan 
+et varan.
+\end{paragraph}
+~\\
+~\\
+
+\begin{paragraph}{Moyenne}~\\
+
+Afin d'avoir en plus le nombre moyen nŽcesssaire pour trouver la solution en suivant cet arbre il faut ajouter les lignes en bleu ˆ la fonction \emph{arbre}:  
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeRed{function} \codeBlue{[nbQuestion,} maxim\codeBlue{]} = arbre(I,str,currentDeepth,maxDeepth)
+
+    if (sum(I)>1) then
+
+        currentDeepth = currentDeepth +1;
+
+        [A,B,i] = partage(I);
+        
+        \codeBlue{[nbQuestion1,} max1\codeBlue{]} = arbre(A,str+'| ',currentDeepth,maxDeepth);
+        
+        printf("\%s\%c (\%i,\%i)",str,code2str(i),sum(A),sum(B));
+        
+       \codeBlue{[nbQuestion2,} max2\codeBlue{]} = arbre(B,str+'| ',currentDeepth,maxDeepth);
+        
+        maxim = 1 + max(max1,max2);
+        \codeBlue{nbQuestion = nbQuestion1 + nbQuestion2;}
+
+    else
+
+        if currentDeepth == maxDeepth then
+            global deepestElements;
+            deepestElements = [deepestElements noms(I)];
+        end
+        
+        \codeBlue{nbQuestion = currentDeepth;}
+        
+        printf("\%s -> \%s",str,noms(I));
+        maxim = 0;
+    end
+
+\codeRed{endfunction}
+\end{Verbatim}
+
+Ainsi que diviser le nombre totale de question par le nombre d'animaux.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{[nbQuestion,} maximum\codeBlue{]} = arbre(I,' ',0,10);
+
+\codeBlue{moyenne = nbQuestion / n}
+\end{Verbatim}
+
+Comparer a P !!!!!!!!!!!!!!!!!!!!!!!\\
+?????????????????????\\
+?????????????????????\\
+
+\end{paragraph}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
