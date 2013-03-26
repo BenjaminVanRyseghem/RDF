@@ -2,20 +2,34 @@
 \input{/Users/WannaGetHigh/workspace/latex/macros.tex}
 
 \title{TP - RdF: Arbres de décision}
-\author{François \bsc{Lepan}}
+\author{François \bsc{Lepan} - Benjamin \bsc{Van Ryseghem}}
 
 \begin{document}
 \maketitle
 
+\section*{Introduction}
+
+Ce rapport fait état de l'utilisation et de la compréhension d'arbre de décisions. Pour y arriver nous passerons d'abord par des questions de bon sens suivi du jeu du pendu.
+
 \section{Question de bon sens}
 \subsection{Que vaut N ?}
 
-N vaut $2^{4+1}$ car pour quatre propositions on a toujours que deux possibilité et le +1 pour arrivé à la solution final.
+N vaut $16$ car pour quatre propositions on à toujours que deux possibilités (dichotomie). 
+
+Explication: Si en quatre propositions il peut trouver la solution c'est qu'il y a 4 niveaux dans l'arbre et pour chaque niveau il y a deux possibilités. 
+Il a donc $2^4~=~16$ possibilités (\emph{cf.}~Fig.~\ref{fig:arbre}).
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=15cm]{figures/arbre.pdf}
+\end{center}
+	\caption{}
+	\label{fig:arbre}
+\end{figure}
 
 \subsection{Expliquer le raisonnement de B et calculer la quantité d’information que lui a donnée A par sa réponse}
 
-???????????????????\\
-???????????????????\\
+En connaissant N et sachant qu'il faudra 4 propositions pour gagner, on peut facilement en déduire que la réponse se trouve dans les feuilles (1, 3, 5, 7, 9, 11, 13, 15) et donc il arrivera à trouver la solution en 3 propositions.
 
 \section{Variante du jeu du pendu}
 
@@ -23,10 +37,8 @@ N vaut $2^{4+1}$ car pour quatre propositions on a toujours que deux possibilité
 
 \begin{paragraph}{Si le programme est sûr de trouver la solution en au plus p questions, quelle est la relation entre n et p ? En déduire une valeur numérique minimale pour p.} ~ \\
 
-??????????????? \\
-??????????????? \\
-??????????????? 
-
+On sait que pour ce jeu on aura un arbre binaire de choix. On aura donc comme relation $N~=~2^p~+~Reste$. On sait que N = 283 qui n'est pas un multiple de 2.
+On en déduit que p va se trouver entre $2^8~=~256$ et $2^9~=~512$. Mais pour être sur de trouver une solution il faut choisir p = 9 sinon certaines questions n'auront pas de réponse.
 \end{paragraph}
 
 \subsection{Que fait ce code ?}
@@ -41,8 +53,8 @@ for i = 1 : n
 end
 \end{verbatimtab}
 
-Ce code stock dans \emph{mat}, en colonnes, les lettres du mot qui sont présentes (35 car "a" == 10).
-Pour cela on met 1 si la lettre est présente (si elle est la deux fois on ne le saura pas).
+Ce code stocke dans \emph{mat}, en colonnes, les lettres du mot qui sont présentes (35 car "a" == 10).
+Pour cela on met 1 si la lettre est présente (si elle est là deux fois on ne le saura pas).
 
 \subsection{Quelle lettre est la plus représentée ?}
 
@@ -67,9 +79,9 @@ Pour cela on met 1 si la lettre est présente (si elle est la deux fois on ne le 
 
 \codeRed{function} h = getNumberOfLetters(noms)
     
-    \codeBlue{// on créer une colonne de 283 afin de faire une multiplication}
+    \codeBlue{// on crée une colonne de 283 afin de faire une multiplication}
     \codeBlue{// entre cette colonne et la matrice de 1 et 0 retournée par presentLettersIn}
-    \codeBlue{// afin de récupérer une seul colonne de 35 contenant pour chaque element}
+    \codeBlue{// afin de récupérer une seul colonne de 35 contenant pour chaque élément}
     \codeBlue{// la somme des éléments de sa ligne.}
     one = ones(size(noms,1),1);
     
@@ -78,7 +90,6 @@ Pour cela on met 1 si la lettre est présente (si elle est la deux fois on ne le 
     h = m * one;
 
 \codeRed{endfunction}
-
 
 
 \codeRed{function} letter = mostPresentLettersIn(noms)
@@ -115,13 +126,7 @@ Après exécution du code on obtient la lettre e.
 \codeRed{endfunction}
 \end{Verbatim}
 
-Voici la fonction qui permet de calculé l'entropie
-
-\subsection{Partage}
-?????????????????? \\
-?????????????????? \\
-??????????????????
-
+Voici la fonction qui permet de calculer l'entropie
 
 \subsection{Que fait ce code ?}
 
@@ -133,9 +138,9 @@ I=([1:n]>0);
 [E,F,k]=partage(B);code2str(k),sum(E),sum(F)
 \end{verbatimtab}
 
-Il affiche la répartition des mots dans l'arbre. Pour le premier partage on à 140 mots dans A et 143 dans B. Pour le partage de A on obtient deux ensembles C contenant 71 mots et D 69 mots. Et enfin pour le partage de B on obtient deux ensembles C contenant 70 mots et D 73 mots.
+Il affiche la répartition des mots dans l'arbre. Pour le premier partage on a 140 mots dans A et 143 dans B. Pour le partage de A on obtient deux ensembles C contenant 71 mots et D 69 mots. Et enfin pour le partage de B on obtient deux ensembles C contenant 70 mots et D 73 mots.
 
-Si on continu on aura pour chaque noeud le nombre de fils qu'il possède, pour chacun de ses fils le nombre de fils, etc.
+Si on continue on aura pour chaque noeud le nombre de fils qu'il possède, pour chacun de ses fils le nombre de fils, etc.
 
 \subsection{L'arbre}
 
@@ -216,7 +221,7 @@ maximum = arbre(I,' '\codeBlue{,0,10})
 
 \end{Verbatim}
 
-L'exécution du code précédent nous fournis les animaux suivant: roussette,  tortue, hareng, panthere, merlan 
+L'exécution du code précédent nous fournit les animaux suivants: roussette,  tortue, hareng, panthere, merlan 
 et varan.
 \end{paragraph}
 ~\\
@@ -224,7 +229,9 @@ et varan.
 
 \begin{paragraph}{Moyenne}~\\
 
-Afin d'avoir en plus le nombre moyen nécesssaire pour trouver la solution en suivant cet arbre il faut ajouter les lignes en bleu à la fonction \emph{arbre}:  
+Afin d'avoir en plus le nombre moyen nécessaire pour trouver la solution en suivant cet arbre il faut ajouter les lignes en bleu à la fonction \emph{arbre}:  
+
+\newpage
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \codeRed{function} \codeBlue{[nbQuestion,} maxim\codeBlue{]} = arbre(I,str,currentDeepth,maxDeepth)
@@ -260,7 +267,7 @@ Afin d'avoir en plus le nombre moyen nécesssaire pour trouver la solution en sui
 \codeRed{endfunction}
 \end{Verbatim}
 
-Ainsi que diviser le nombre totale de question par le nombre d'animaux.
+ainsi que diviser le nombre total de question par le nombre d'animaux.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \codeBlue{[nbQuestion,} maximum\codeBlue{]} = arbre(I,' ',0,10);
@@ -268,12 +275,14 @@ Ainsi que diviser le nombre totale de question par le nombre d'animaux.
 \codeBlue{moyenne = nbQuestion / n}
 \end{Verbatim}
 
-Comparer a P !!!!!!!!!!!!!!!!!!!!!!!\\
-?????????????????????\\
-?????????????????????\\
-
+On obtient comme réponse 8.2756184. Cette différence avec p s'explique car $2^8~=~256~<~n~=~283~<~2^9~=~512$ 
+donc il est normal de trouver une réponse entre 8 et 9.
 \end{paragraph}
 
+
+\section*{Conclusion}
+
+Au vue de ces résultats nous pouvons dire que les arbres de décisions sont un moyen efficace de trouver des solutions en un temps record et leur mise en oeuvre est facile.
 
 \end{document}
 
