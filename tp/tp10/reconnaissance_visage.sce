@@ -1,14 +1,34 @@
-// On construi le tableau de classe pour les images
-// (10 premieres images pour la classe 1, 
-//  les 10 suivantes pour la classe 2, etc )
-function m = buildClassTab()
-    m = int((0:399)/10) + 1;
+// separation des visages
+//  on retourne les derniers visages de chaques classes dans une matrice
+//  et le reste dans une autre
+function [treePool, pickPool] = getPools(stackedFace)
+    pickIndexes = [1:40] * 10;
+    
+    // on creer un tableau contenant des chiffres de 1 a 10
+    treeIndexes = modulo([0:399], 10) +1;
+    // on ne conserve les indices que pour les valeurs differente de 10
+    treeIndexes = find(treeIndexes ~= 10);
+    
+    pickPool = stackedFace(:, :, pickIndexes);
+    treePool = stackedFace(:, :, treeIndexes);
 endfunction
 
-// On recupere une face parmis toutes celles proposees
-function [face, index] = getOneFaceOf(stackedFace)
-    index = grand(1,1,'uin',0,400)
-    face = stackedFace(:,:,index)
+// On construit le tableau de classe pour les images
+// on ne prend que les 9 premieres images pour la classe 1,
+// les 9 suivantes pour la classe 2, ... (le tout pour les 40 classes) 
+// Car on a conserve les dernieres de chaque classe seulement 
+// pour les rajouter
+function m = buildClassTab()
+    m = int((0:359)/9) + 1;
+endfunction
+
+// On recupere une face parmis les dernieres de chaque classe
+function [face, class] = getOneFaceOf(stackedFace)
+    stackedFaceSize = size(stackedFace,3);
+    
+    class = grand(1, 1, 'uin', 1, stackedFaceSize)
+
+    face = stackedFace(:, :, class)
 endfunction
 
 // Cette fonction verifie si il ne reste plus qu'une seule classe
@@ -134,8 +154,8 @@ function printResult(a, b)
     end
 endfunction
 
+stacksize(100000000);
 
-stacksize('max');
 allFacesName = "allFaces.png";
 
 // convertie l'image en binaire
@@ -151,15 +171,17 @@ classTab = buildClassTab();
 // car long a s'executer
 stackedFace = stackedFaces(allFaces);
 
+// on recupere les visages qui serviront a la construciotn de l'arbre
+// et les visages de test
+[treePool, pickPool] = getPools(stackedFace);
+
 // On recupere une figure au hasard
 // ainsi que l'indice de celle-ci afin de recuperer
 // sa classe dans le tableau classTab
-[oneFace, ind] = getOneFaceOf(stackedFace);
+[oneFace, class] = getOneFaceOf(pickPool);
 
 // On recherche la classe de l'image
-index = findClass(stackedFace, oneFace, classTab);
+index = findClass(treePool, oneFace, classTab);
 
 // On affiche le resultat
-printResult(index,classTab(ind));
-
-
+printResult(index,class);
