@@ -163,19 +163,42 @@ Donc 'bbaaac' peut être de classe 2 ou de classe 3
 \end{verbatimtab}
 \subsubsection{De quel type est cette grammaire?}
 
-C'est une grammaire algébrique car elle est de la forme $R_i:T\rightarrow x$ où x est terminal ou non
+C'est une grammaire algébrique car elle est de la forme $R_i:T\rightarrow x$ où x est terminal ou non.
 
 \subsection{Montrez que cette grammaire génère le langage L(G) = \{$c a^n cb a^n b$ | $n \geq 1$\}}
 
-On peut voir sur la Fig.~\ref{grammar_abc} que à chaque fois on rajoute autant de a de chaque coté du cb centrale (cas d'arrêt). 
+On peut voir sur la Fig.~\ref{grammar_abc} que le mot commence par c et termine par b.
+Ensuite il y a forcement 2 a qui sont ajoutés, un après c et un avant b (avec $n \geq 1$).
+
+Puis on arrive sur le cas ou soit on choisit d'ajouter 2 a où terminer par cb (au centre du mot).
+
+Le fait que l'on ajoute à chaque fois 2 a justifie le fait qu'il y en aura toujours autant de chaque coté du cb final ($a^n$).
 
 \begin{figure}[ht]
 \begin{center}
-	\includegraphics[width=15cm]{figures/grammar_abc}
+	\includegraphics[width=10cm]{figures/grammar_abc}
 \end{center}
 	\caption{Arbre de dérivation de la grammaire G}
 	\label{grammar_abc}
-\end{figure}\subsection{Arbres de dérivation}
+\end{figure}
+
+\subsection{Arbres de dérivation}
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=5cm]{figures/caacbaab}
+\end{center}
+	\caption{Arbre de dérivation pour le mot caacbaab}
+	\label{caacbaab}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[width=5cm]{figures/cacbab}
+\end{center}
+	\caption{Arbre de dérivation pour le mot cacbab}
+	\label{cacbab}
+\end{figure}
 
 
 
