@@ -9,12 +9,12 @@
 
 \section*{Introduction}
 
-Dans ce rapport nous allons voir comment faire pour reconnaitre des visages par le biais d'arbre de décision. 
-Nous verrons comment préparer les données, la construction de l'arbre, et sur quel critère se baser pour choisir une branche de l'arbre.
+Dans ce rapport nous allons voir comment faire pour reconnaitre des visages par le biais d'arbres de décision. 
+Nous verrons comment préparer les données, la construction de l'arbre, et sur quels critères se baser pour choisir une branche de l'arbre.
  
 \section{Préparation des données}
 
-En entrée nous possédons une image faisant 660*800 pixels contenant 10 exemples de 40 visages soit 400 visages. Une première chose à faire est de créer une pile de visage afin de facilité les calcules par la suite.
+En entrée nous possédons une image faisant 660*800 pixels contenant 10 exemples de 40 visages soit 400 visages. Une première chose à faire est de créer une pile de visage afin de faciliter les calculs par la suite.
 
 Pour ce faire nous allons utiliser la fonction suivante :
 
@@ -34,7 +34,7 @@ Pour ce faire nous allons utiliser la fonction suivante :
 
 Cette fonction retourne une matrice de taille 40*33*400. Les dix premières images seront la première classe, les dix suivantes la seconde classe, etc.
 
-Maintenant que nous avons cette pile d'images nous allons la séparer en deux matrices. La première contiendra les 9 premières images de chaque classes servant à la création de l'arbre et la seconde contiendra les dernières images de chaque classes pour effectuer les tests.
+Maintenant que nous avons cette pile d'images nous allons la séparer en deux matrices. La première contiendra les 9 premières images de chaque classe servant à la création de l'arbre et la seconde contiendra les dernières images de chaque classe pour effectuer les tests.
 
 \newpage
 
@@ -59,13 +59,13 @@ Voici la fonction permettant cette séparation:
 \codeRed{endfunction}
 \end{Verbatim}
 
-Maintenant que les données sont prêtent à l'emploi nous allons voir comment construire l'arbre de décision.
+Maintenant que les données sont prêtent à l'emploi nous allons voir comment construire l'arbre de décisions.
 
 \section{Méthodologie}
 
-Afin de construire l'arbre de décision nous allons choisir comme critère de sélection un pixel de l'image. Mais pour savoir quel pixel choisir il va falloir calculer la variation d'entropie pour chaque pixel du sous-ensemble choisi (à la première itération on prend toutes les images).
+Afin de construire l'arbre de décisions nous allons choisir comme critère de sélection un pixel de l'image. Mais pour savoir quel pixel choisir il va falloir calculer la variation d'entropie pour chaque pixel du sous-ensemble choisi (à la première itération on prend toutes les images).
 
-Ensuite on choisi parmi toutes les valeurs d'entropie celle qui est la plus significative (i.e la plus grande). 
+Ensuite on choisit parmi toutes les valeurs d'entropie celle qui est la plus significative (i.e la plus grande). 
 
 Et lorsqu'on a choisi le pixel, on sépare l'ensemble courant en deux sous-ensemble (l'un contenant les visages qui possèdent ce pixel et ceux qui ne le possèdent pas).
 
@@ -73,7 +73,7 @@ Enfin on regarde si l'image pour laquelle on cherche la classe possède ce pixel 
 
 Il faudra recommencer ces étapes (choix pixel, séparation ensemble, choix ensemble) tant que l'ensemble courant possèdent plus d'une classe.
 
-Voici les fonctions permettant d'effectuer ces calcules:
+Voici les fonctions permettant d'effectuer ces calculs:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \codeBlue{// Calcul de l'entropie pour les images contenu dans stackedFace}

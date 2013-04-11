@@ -96,3 +96,50 @@ D = 4.
 σ = 3.66
 
 Donc 'ccbba' est de classe 2
+
+
+=======================================================
+
+=======================================================
+
+
+?- levenshtein('bbaaac','aabbc',D).
+D = 4.
+
+?- levenshtein('bbaaac','ababcc',D).
+D = 3.
+
+?- levenshtein('bbaaac','babbcc',D).
+D = 4.
+
+σ = 3.66
+
+
+
+?- levenshtein('bbaaac','bccba',D).
+D = 4.
+
+?- levenshtein('bbaaac','bbbca',D).
+D = 3.
+
+?- levenshtein('bbaaac','cbbaaaa',D).
+D = 2.
+
+σ = 3
+
+
+
+?- levenshtein('bbaaac','caaaa',D).
+D = 3.
+
+?- levenshtein('bbaaac','cbcaab',D).
+D = 3.
+
+?- levenshtein('bbaaac','baaca',D).
+D = 3.
+
+σ = 3
+
+
+
+Donc 'bbaaac' peut être de classe 2 ou de classe 3
