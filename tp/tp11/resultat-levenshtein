@@ -1,0 +1,98 @@
+levenshtein('abacc','aabbc',D).
+D = 3.
+?- levenshtein('abacc','ababcc',D).
+D = 1.
+?- levenshtein('abacc','babbcc',D).
+D = 2.
+
+σ = 2.
+
+?- levenshtein('abacc','bccba',D).
+D = 4.
+?- levenshtein('abacc','bbbca',D).
+D = 3.
+?- levenshtein('abacc','cbbaaaa',D).
+D = 5.
+
+σ = 4
+
+?- levenshtein('abacc','caaaa',D).
+D = 4.
+?- levenshtein('abacc','cbcaab',D).
+D = 4.
+?- levenshtein('abacc','baaca',D).
+D = 3.
+
+σ = 3.6
+
+
+Donc 'abacc' -> classe 1
+
+
+=======================================================
+
+=======================================================
+
+
+?- levenshtein('ccab','aabbc',D).
+D = 4.
+?- levenshtein('ccab','ababcc',D).
+D = 4.
+?- levenshtein('ccab','babbcc',D).
+D = 5.
+
+σ = 4.33
+
+?- levenshtein('ccab','bccba',D).
+D = 3.
+?- levenshtein('ccab','bbbca',D).
+D = 4.
+?- levenshtein('ccab','cbbaaaa',D).
+D = 5.
+
+σ = 4
+
+?- levenshtein('ccab','caaaa',D).
+D = 3.
+?- levenshtein('ccab','cbcaab',D).
+D = 2.
+?- levenshtein('ccab','baaca',D).
+D = 4.
+
+σ = 3
+
+Donc 'ccab' est de classe 3
+
+
+=======================================================
+
+=======================================================
+
+?- levenshtein('ccbba','aabbc',D).
+D = 3.
+?- levenshtein('ccbba','ababcc',D).
+D = 5.
+?- levenshtein('ccbba','babbcc',D).
+D = 4.
+
+σ = 4
+
+?- levenshtein('ccbba','bccba',D).
+D = 2.
+?- levenshtein('ccbba','bbbca',D).
+D = 3.
+?- levenshtein('ccbba','cbbaaaa',D).
+D = 4.
+
+σ = 3
+
+?- levenshtein('ccbba','caaaa',D).
+D = 3.
+?- levenshtein('ccbba','cbcaab',D).
+D = 4.
+?- levenshtein('ccbba','baaca',D).
+D = 4.
+
+σ = 3.66
+
+Donc 'ccbba' est de classe 2
