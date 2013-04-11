@@ -1,0 +1,188 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{Rapport RdF - TP10: Arbres de décision et reconnaissance de visages}
+\author{Benjamin \bsc{Van Ryseghem} - François \bsc{Lepan}}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+
+Dans ce rapport nous allons voir comment faire pour reconnaitre des visages par le biais d'arbre de décision. 
+Nous verrons comment préparer les données, la construction de l'arbre, et sur quel critère se baser pour choisir une branche de l'arbre.
+ 
+\section{Préparation des données}
+
+En entrée nous possédons une image faisant 660*800 pixels contenant 10 exemples de 40 visages soit 400 visages. Une première chose à faire est de créer une pile de visage afin de facilité les calcules par la suite.
+
+Pour ce faire nous allons utiliser la fonction suivante :
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{// Créé un tableau de 40*33*400}
+\codeBlue{// à partir d'un tableau de 660*800}
+\codeRed{function} sf = stackedFaces(allFaces)
+    sf = zeros(40,33,400); \codeBlue{// numLignes, numColonnes, numFaces}
+	
+    for i=0:19
+        for j=0:19
+            sf(:,:, (i*20 + j + 1) ) = allFaces( 1+i*40 : (i+1)*40 , 1+j*33 : (j+1)*33 );
+        end
+    end
+\codeRed{endfunction}
+\end{Verbatim}
+
+Cette fonction retourne une matrice de taille 40*33*400. Les dix premières images seront la première classe, les dix suivantes la seconde classe, etc.
+
+Maintenant que nous avons cette pile d'images nous allons la séparer en deux matrices. La première contiendra les 9 premières images de chaque classes servant à la création de l'arbre et la seconde contiendra les dernières images de chaque classes pour effectuer les tests.
+
+\newpage
+
+Voici la fonction permettant cette séparation:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{// séparation des visages:}
+\codeBlue{//  on retourne les derniers visages de chaque classes dans une matrice}
+\codeBlue{//  et les 9 premier de chaque classe dans une autre matrice}
+\codeRed{function} [treePool, pickPool] = getPools(stackedFace)
+    pickIndexes = [1:40] * 10;
+    
+    \codeBlue{// On créer un tableau contenant des chiffres de 1 à 10}
+    \codeBlue{// [1, ..., 10, 1, ..., 10, ...]}
+    treeIndexes = modulo([0:399], 10) + 1;
+    \codeBlue{// on ne conserve les indices que pour les valeurs différentes de 10}
+    \codeBlue{// c'est à dire les 9 premières images de chaque classe}
+    treeIndexes = find(treeIndexes ~= 10);
+    
+    pickPool = stackedFace(:, :, pickIndexes);
+    treePool = stackedFace(:, :, treeIndexes);
+\codeRed{endfunction}
+\end{Verbatim}
+
+Maintenant que les données sont prêtent à l'emploi nous allons voir comment construire l'arbre de décision.
+
+\section{Méthodologie}
+
+Afin de construire l'arbre de décision nous allons choisir comme critère de sélection un pixel de l'image. Mais pour savoir quel pixel choisir il va falloir calculer la variation d'entropie pour chaque pixel du sous-ensemble choisi (à la première itération on prend toutes les images).
+
+Ensuite on choisi parmi toutes les valeurs d'entropie celle qui est la plus significative (i.e la plus grande). 
+
+Et lorsqu'on a choisi le pixel, on sépare l'ensemble courant en deux sous-ensemble (l'un contenant les visages qui possèdent ce pixel et ceux qui ne le possèdent pas).
+
+Enfin on regarde si l'image pour laquelle on cherche la classe possède ce pixel afin de descendre dans l'arbre.
+
+Il faudra recommencer ces étapes (choix pixel, séparation ensemble, choix ensemble) tant que l'ensemble courant possèdent plus d'une classe.
+
+Voici les fonctions permettant d'effectuer ces calcules:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{// Calcul de l'entropie pour les images contenu dans stackedFace}
+\codeRed{function} m = entropie(stackedFace)
+    \codeBlue{// on fait la moyenne des valeurs des pixels}
+    \codeBlue{// pour toutes les images}
+    m = mean(stackedFace,3);
+    
+    \codeBlue{// calcul de l'entropie}
+    m = - log2(m.^m) - log2((1 - m).^(1 - m));
+\codeRed{endfunction}
+\end{Verbatim}
+\newpage
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{// Fonction de partage:}
+\codeBlue{// permet de séparer un ensemble en deux sous ensemble}
+\codeBlue{// en fonction du pixel choisi}
+\codeRed{function} [A,B,i] = partage(I,stackedFace)
+    
+    \codeBlue{// récupère les visages significatifs}
+    significatif = stackedFace(:,:,I);
+    
+    \codeBlue{// calcul l'entropie de ces images}
+    entrop = entropie(significatif);
+    
+    \codeBlue{// récupère l'indice du pixels le plus significatif}
+    [m,i] = max(entrop);
+    
+    x = i(1);
+    y = i(2);
+    
+    \codeBlue{// on met la 3ème dimension dans la première}
+    stckedFace(1,:) = stackedFace(x,y,:);
+    
+    \codeBlue{// partage les visages significatifs en deux sous-ensembles}
+    \codeBlue{// ceux qui possède ce pixel à 1}
+    A = I & (stckedFace == 1);
+    
+    \codeBlue{// ceux qui ne le possède pas}
+    B = I & (stckedFace == 0);    
+\codeRed{endfunction}
+
+\codeBlue{// Cette fonction verifie si il ne reste plus qu'une seule classe}
+\codeBlue{// parmis celles proposer dans tabClasses grace a la fonction tabul}
+\codeRed{function} index = onlyOneClass(tabClasses)
+    \codeBlue{// stock les elements de cette facon}
+    \codeBlue{//      classe ocurrence}
+    \codeBlue{//ex:     1     3}
+    \codeBlue{//        3     1}
+    \codeBlue{//        4     1}
+    \codeBlue{//        5     2}
+    t = tabul(tabClasses)
+    
+    \codeBlue{// Donc si il ne reste plus qu'une ligne}
+    \codeBlue{// il ne reste plus qu'une classe et on la retourne}
+    if (size(t,1) == 1) then
+         index = t(1);
+    \codeBlue{// sinon on retourne -1}
+    else
+        index = -1;
+    end
+\codeRed{endfunction}
+\end{Verbatim}
+
+\newpage
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\codeBlue{// fonction principale}
+\codeBlue{//      - trouve a quel classe corespond aFace}
+\codeBlue{//      - utilise stackedFace comme base d'apprantissage}
+\codeBlue{//      - tabClasses sert a savoir si dans le noeud courant}
+\codeBlue{//        il reste plus d'une classe}
+\codeRed{function} ind = findClass(stackedFace, aFace, tabClasses)
+    
+    \codeBlue{// initialisation du vecteur de booleen pour le partage}
+    n = size(stackedFace,3);
+    I = ([1:n]>0)
+    
+    index = -1;
+    
+    \codeBlue{// Tant qu'il reste plus d'une classe dans un noeud}
+    \codeBlue{// voir fonction onlyOneClass}
+    while (index == -1) do
+        
+        \codeBlue{// On partage en deux sous-ensembles}
+        [A,B,i]=partage(I)
+        
+        x = i(1);
+        y = i(2);
+        
+        \codeBlue{// Si l'image contient le pixel en x y}
+        \codeBlue{// on va en A}
+        if aFace(x,y) == 1 then
+            \codeBlue{// Est-ce qu'il reste une seule classe ?}
+            index = onlyOneClass(tabClasses(A));
+            I=A;
+
+        \codeBlue{// Sinon on va en B}
+        else 
+            index = onlyOneClass(tabClasses(B));
+            I=B;
+        end
+    end
+    
+    ind = index;
+\codeRed{endfunction}
+\end{Verbatim}
+
+\section*{Conclusion}
+
+Après avoir exécuter l'algorithme on n'obtient pas de très bon résultat. En effet pour connaître la classe de l'image à rajouter on ne se base que sur un critère (ici un pixel de l'image). Si on voulait de meilleur résultat il faudrait rajouter d'autres critères comme la couleur moyenne de l'image, le voisinage du pixel, etc. Mais malgré cela l'algorithme est simple à mettre en oeuvre.
+\end{document}

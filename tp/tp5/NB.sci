@@ -13,6 +13,11 @@ function frequences = frequencesMatrix(x_train)
     frequences = frequences / (n*size(x_train,2))
 endfunction
 
+<<<<<<< HEAD
+t = tabul(sub,'i');
+
+frequences(i+1,:) = t(:,2)'
+=======
 function classe=estimate(f, fs)
     sz = size(fs,1)
     post = ones(sz,1)
@@ -29,6 +34,7 @@ function classe=estimate(f, fs)
     [foo, indice] =max(post)
     classe = indice
 endfunction
+>>>>>>> 3bff6f2be77234d4c66d4ef60bfac094cd7b4a45
 
 function y_estim=populateEstim(x_test, frequences)
     sz = size(x_test,1)
