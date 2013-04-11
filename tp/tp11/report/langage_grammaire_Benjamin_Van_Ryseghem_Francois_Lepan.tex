@@ -1,5 +1,5 @@
  \documentclass[a4paper,10pt]{article}
-\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+\input{macro.tex}
 
 \title{TP RdF, semaine 12: chaînes, langages et grammaires}
 \author{François \bsc{Lepan}}
@@ -163,7 +163,7 @@ Donc 'bbaaac' peut être de classe 2 ou de classe 3
 \end{verbatimtab}
 \subsubsection{De quel type est cette grammaire?}
 
-C'est une grammaire algébrique car elle est de la forme $R_i:T\rightarrow x$ où x est terminal ou non
+C'est une grammaire algébrique car elle est de la forme $R_i:T\rightarrow x$ où x est terminal ou non.
 
 \subsection{Montrez que cette grammaire génère le langage L(G) = \{$c a^n cb a^n b$ | $n \geq 1$\}}
 
@@ -177,6 +177,64 @@ On peut voir sur la Fig.~\ref{grammar_abc} que à chaque fois on rajoute autant d
 	\label{grammar_abc}
 \end{figure}\subsection{Arbres de dérivation}
 
+\section{Palindromes}
+
+\subsection{Grammaire}
+\begin{verbatim}
+W := aWa | bWb | cWc | dWd | eWe | fWf | gWg | hWh | iWi | jWj | kWk | lWl | mWm | nWn 
+W := oWo | pWp | qWq | rWr | sWs | tWt | uWu | vWv | wWw | xWx | yWy | zWz | W := a | b | c | d | e | f | g | h | i | j | k | l | m | n 
+W := o | p | q | r | s | t | u | v | w | x | y | z | 
+W := epsilon
+\end{verbatim}
+
+Cette grammaire est une grammaire algébrique.
+
+\subsection{Arbres de dérivation}
+
+\begin{figure}[!h]
+\begin{center}
+     \includegraphics[width=6cm]{figures/derivation_bob}
+\end{center}
+     \caption{Dérivation du mot 'bob'}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+     \includegraphics[width=8cm]{figures/derivation_otto}
+\end{center}
+     \caption{Dérivation du mot 'otto'}
+\end{figure}
+
+\newpage
+\subsection{Implémentation en \pl}
+Nous avons deux implémentations  en \pl, l'une basée sur l'inversion d'atome, l'autre sur l'extraction de sous atomes.
+
+
+\begin{verbatimtab}
+atom_reverse(X,X) :- atom_length(X,0).
+atom_reverse(X,X) :- atom_length(X,1).
+atom_reverse(X,Y) :- 
+	atom_concat(A,B,X), 
+	atom_length(A,1), 
+	atom_reverse(B,B2), 
+	atom_concat(B2, A,Y).
+
+palindrome(X) :- atom_reverse(X, X).
+\end{verbatimtab}
+
+
+\begin{verbatimtab}
+palindrome2(X) :- atom_length(X,0).
+palindrome2(X) :- atom_length(X,1).
+palindrome2(X) :- 
+	atom_length(X,S), 
+	P is S-1, 
+	L is P-1, 
+	sub_atom(X,0,1,_,A), 
+	sub_atom(X,P,1,_,A), 
+	sub_atom(X,1,L,_,W), 
+	palindrome2(W).
+\end{verbatimtab}
 
 
 \end{document}
