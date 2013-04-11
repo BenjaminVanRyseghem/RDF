@@ -52,7 +52,7 @@ function err = calculateError(y_estim, y_test)
     err = mean(errors)
 endfunction
 
-n=200; 
+n=1000; 
 
 x_train = double([  train0(1:n,:); train1(1:n,:); train2(1:n,:); train3(1:n,:); 
                     train4(1:n,:); train5(1:n,:); train6(1:n,:); train7(1:n,:); 
